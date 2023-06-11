@@ -1,0 +1,1 @@
+import { MainBanner } from "./components/MainBanner";

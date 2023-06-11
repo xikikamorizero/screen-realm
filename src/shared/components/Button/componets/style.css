@@ -1,0 +1,21 @@
+.button {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    border: 1px solid silver
+}
+
+.banner {
+    width: 100%;
+    padding: 0px 58px 0px 58px;
+    border-radius: 25px;
+    border: 2.5px solid rgba(255, 255, 255, 0.3);
+    opacity: 0.6;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 59px;
+    min-height: 163px;
+}

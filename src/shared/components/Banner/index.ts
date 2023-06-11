@@ -1,0 +1,1 @@
+export {Banner} from './componets/Banner';

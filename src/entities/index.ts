@@ -1,2 +1,6 @@
 export * from './MainBanner';
-export * from './MainPoster';
+export * from './MainFooter';
+export * from './MainHeader';
+export * from './MainFilm';
+export * from './Slaider';
+export * from './SearchInput';

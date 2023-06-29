@@ -1,0 +1,1 @@
+export {SlaiderBest} from './components/SlaiderBestFilm';

@@ -1,0 +1,1 @@
+export {FilmListInfi} from './components/FilmListInfi';

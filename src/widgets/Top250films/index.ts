@@ -1,0 +1,1 @@
+export {Top250films} from './componetns/Top250films';

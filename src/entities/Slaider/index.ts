@@ -1,0 +1,1 @@
+export {Slaider} from './components/Slaider';

@@ -1,0 +1,1 @@
+export {SlaiderPopular} from './components/SlaiderPopularFilm';

@@ -1,0 +1,1 @@
+export {FilmsID} from './components/FilmsID';

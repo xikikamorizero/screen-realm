@@ -1,0 +1,1 @@
+export {MainFilm} from './components/MainFilm';

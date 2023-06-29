@@ -1,0 +1,1 @@
+export {FilmDescription} from './components/FilmDescription';

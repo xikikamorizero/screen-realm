@@ -1,0 +1,1 @@
+export { MainPoster } from "./components/MainPoster";

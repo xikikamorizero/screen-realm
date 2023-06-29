@@ -1,0 +1,1 @@
+export {RecommendationsList} from './components/RecommendationsList';

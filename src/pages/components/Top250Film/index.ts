@@ -1,0 +1,1 @@
+export {top250film} from './components/Top250Film';

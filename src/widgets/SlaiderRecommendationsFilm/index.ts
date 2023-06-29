@@ -1,0 +1,1 @@
+export {SlaiderRecommendations} from './components/SlaiderRecommendationsFilm';

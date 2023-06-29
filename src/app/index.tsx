@@ -1,16 +1,40 @@
 import React from "react";
-import './styles/index.css';
-import './styles/colors.css'
-import { Button } from "../shared/components";
-import { MainBanner } from "../entities/MainBanner/components/MainBanner";
-
+import { useLocation } from "react-router-dom";
+import "./styles/index.css";
+import "./styles/colors.css";
+import { CheckAccountAccess } from "../processes";
+import { BrowserRouter } from "react-router-dom";
+import { protected_routers, public_routers } from "./routers";
+import { Container, HeaderBanner } from "../shared/components";
+import { MainHeader } from "../entities/MainHeader";
+import styled from "styled-components";
+import { MainFooter } from "../entities/MainFooter";
 
 const App = () => {
-    return (
-        <div>
-        <MainBanner icon={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgjb7-m-KE3QPsG3UaK4T8zrb849UKKT0DeA&usqp=CAU'} text={'Аудиокнига по дороге на работу и обратно, подарит вам почти месяц чтения за год'} />
-        </div>
-    )
-}
+  return (
+    <AppContainer>
+      <MainHeader />
+      <Center>
+        <BrowserRouter>
+          <CheckAccountAccess
+            protectedRoutes={protected_routers}
+            publicRoutes={public_routers}
+          />
+        </BrowserRouter>
+      </Center>
+      <MainFooter />
+    </AppContainer>
+  );
+};
 
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Center = styled(Container)`
+  min-height: 93vh;
+  padding-top: 90px;
+`;
 export default App;

@@ -1,1 +1,0 @@
-import { MainPoster } from "./components/MainPoster";

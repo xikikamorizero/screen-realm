@@ -1,0 +1,1 @@
+export {GridPoster} from './components/GridPoster';

@@ -18,4 +18,13 @@
     align-items: center;
     gap: 59px;
     min-height: 163px;
+    height: auto;
+
+    background: url();
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+  
 }
+

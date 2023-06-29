@@ -1,0 +1,1 @@
+export {FilmInfoBlock} from './components/FilmsInfoBlock';

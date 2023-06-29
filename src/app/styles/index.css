@@ -2,5 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: rebeccapurple;
+}
+body{
+    background-color: var(--main);
+    /* padding-top: 100px; */
 }

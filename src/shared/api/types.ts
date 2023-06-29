@@ -233,7 +233,7 @@ interface Genre {
     genre: string;
 }
 
-interface Film {
+export interface Film {
     filmId: number;
     nameRu: string;
     nameEn: string;
@@ -305,7 +305,7 @@ export interface FilmsParams {
     page:number;
 }
 
-interface Films {
+export interface Films {
     kinopoiskId: number;
     imdbId: string;
     nameRu: string;

@@ -2,6 +2,10 @@
     --main: #0F1014;
     --secondary: #EC8F32;
     --border: rgba(255, 255, 255, 0.3);
-    --white: #fff;
+    --borderSecondaty: #413C3C;
+    --white: #fff; 
     --creator:#ADADAD;
+    --lowRating:#df3030;
+    --highRating:#01B368;
+    --footerTextColor: #ADADAD;
 }

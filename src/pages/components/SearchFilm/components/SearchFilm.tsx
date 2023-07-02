@@ -16,6 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-top: 30px;
 `;
 
 export const search: TPages = [<SearchFilms />];

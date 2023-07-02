@@ -1,0 +1,1 @@
+export {SlaiderContainer} from './components/SlaiderContainer';

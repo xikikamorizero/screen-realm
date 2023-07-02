@@ -9,7 +9,7 @@ export const HeaderBanner = () => {
     if (map < 5) {
       const timer = setTimeout(() => {
         setMap(map + 1);
-      }, 4000);
+      }, 10000);
 
       return () => {
         clearTimeout(timer);

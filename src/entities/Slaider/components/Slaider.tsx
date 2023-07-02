@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../shared/components";
 import { MainPoster } from "../../../shared/components";
+import { SlaiderContainer } from "../../../shared/components";
 import * as types from "../../../shared/api/types";
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 export const Slaider = ({ ...props }: Props) => {
   let navigate = useNavigate();
   return (
-    <SlaiderContainer>
+    <Container>
       <ContainerTitleButton>
         <Title>{props.text}</Title>
         <Button
@@ -30,7 +31,7 @@ export const Slaider = ({ ...props }: Props) => {
           Смотреть все
         </Button>
       </ContainerTitleButton>
-      <SlaiderFilm>
+      <SlaiderContainer>
         {props.array?.map((a: types.Film, i) => (
           <MainPoster
             id={a.filmId}
@@ -40,28 +41,16 @@ export const Slaider = ({ ...props }: Props) => {
             key={i}
           />
         ))}
-      </SlaiderFilm>
-    </SlaiderContainer>
+      </SlaiderContainer>
+    </Container>
   );
 };
 
-const SlaiderContainer = styled.div`
+const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const SlaiderFilm = styled.div`
-  display: flex;
-  gap: 10px;
-  overflow: scroll;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none; /* IE и Edge */
-  scrollbar-width: none; /* Firefox */
 `;
 
 const ContainerTitleButton = styled.div`

@@ -5,4 +5,5 @@ export const path = {
     top250film: '/best_films',
     award: '/recommendations',
     search: '/search',
+    aboutUs: 'aboutUs',
 };

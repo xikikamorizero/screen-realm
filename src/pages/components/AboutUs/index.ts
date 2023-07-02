@@ -1,0 +1,1 @@
+export {aboutUs} from './components/AboutUs';

@@ -16,6 +16,11 @@ export const useList = () => {
             page: 1,
           })
           .then((response) => {
+            if (response == undefined) {
+              store.responseStatus = 402;
+              global.store.error = 402;
+              return;
+            }
             store.list = [...response.data.films]
           })
     }, []);

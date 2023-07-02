@@ -2,7 +2,6 @@ import React from "react";
 import { TPages } from "gears-react";
 import {
   SlaiderPopular,
-  SlaiderWidget,
   SlaiderBest,
   SlaiderRecommendations,
 } from "../../../../widgets";

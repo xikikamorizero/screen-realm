@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { useMovie } from '../lib/hook';
-import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
-import { MainFilm } from '../../../entities';
+import { useMovie } from "../lib/hook";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { MainFilm } from "../../../entities";
+import { Context } from "../lib/context";
+import { Loader } from "../../../shared/components";
 
+export const FilmInfoBlock = observer(() => {
+  const location = useLocation();
+  const { store } = useContext(Context);
+  store.id = Number(location.pathname.split("/")[2]);
 
-export const FilmInfoBlock =observer(()=>{
-    const location = useLocation();
-    const id = Number(location.pathname.split("/")[2]);
-    const film = useMovie(id);
- 
-    console.log(film?.posterUrl)
-    return(
-     <MainFilm image={film?.posterUrl} name={film?.nameOriginal} description={film?.description} 
-     rating={film?.ratingKinopoisk} countRating={film?.ratingKinopoiskVoteCount} ageRating={film?.ratingAgeLimits} />
-    )
-})
+  const result = useMovie();
+  if (store.loader) {
+    return <Loader />;
+  }
+  return (
+    <MainFilm
+      image={result.film?.posterUrl}
+      name={result.film?.nameRu}
+      description={result.film?.description}
+      rating={result.film?.ratingKinopoisk}
+      countRating={result.film?.ratingKinopoiskVoteCount}
+      ageRating={result.film?.ratingAgeLimits}
+      startYear={result.film?.startYear}
+      endYear={result.film?.endYear}
+      screenshot={result.screenshot}
+      similars={result.similar}
+    />
+  );
+});
 
-const Container = styled.div`
-    
-`
+const Container = styled.div``;

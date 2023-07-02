@@ -13,16 +13,17 @@ import { MainFooter } from "../entities/MainFooter";
 const App = () => {
   return (
     <AppContainer>
+      <BrowserRouter>
       <MainHeader />
       <Center>
-        <BrowserRouter>
+        
           <CheckAccountAccess
             protectedRoutes={protected_routers}
             publicRoutes={public_routers}
           />
-        </BrowserRouter>
       </Center>
       <MainFooter />
+      </BrowserRouter>
     </AppContainer>
   );
 };

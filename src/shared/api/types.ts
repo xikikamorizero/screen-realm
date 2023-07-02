@@ -188,7 +188,7 @@ export interface PosterParams {
     page: number;
 }
 
-interface MovieImage {
+export interface MovieImage {
     imageUrl: string;
     previewUrl: string;
 }
@@ -292,8 +292,8 @@ export interface FilterInfo {
 }
 
 export interface FilmsParams {
-    countries?: number[];
-    genres?: number[];
+    countries?: Number[];
+    genres?: Number[];
     order: 'RATING' | 'NUM_VOTE' | 'YEAR';
     type: 'FILM' | 'TV_SHOW' | 'TV_SERIES' | 'MINI_SERIES' | 'ALL';
     ratingFrom:number;

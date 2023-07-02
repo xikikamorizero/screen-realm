@@ -12,3 +12,6 @@ export * from './ContainerGrid';
 export * from './GridPoster';
 export * from './Loaders';
 export * from './SearchInput';
+export * from './SlaiderContainer';
+export * from './Loaders';
+export * from './Error402';

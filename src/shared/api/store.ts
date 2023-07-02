@@ -40,4 +40,6 @@ export class Store {
 
     public readonly movie = new Movie();
     public readonly list = new ListInfo();
+    public loader = false;
+    public error = 0;
 }

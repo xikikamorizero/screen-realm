@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { HeaderContainer } from "../../../shared/components";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -12,8 +12,25 @@ type Props = {
 
 export const MainHeader = ({ ...props }: Props) => {
   let navigate = useNavigate();
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setScrolled(isScrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <HeaderContainer
+    background={scrolled}
       header={
         <Header>
           <Icon
@@ -56,8 +73,8 @@ const Header = styled(Container)`
   justify-content: space-between;
 `;
 const Icon = styled.div`
-  width: ${({ width }: PropsStyled) => width};
-  height: ${({ height }: PropsStyled) => height};
+  min-width: ${({ width }: PropsStyled) => width};
+  min-height: ${({ height }: PropsStyled) => height};
   background: url(${({ icon }: PropsStyled) => icon});
   background-position: center;
   background-repeat: no-repeat;

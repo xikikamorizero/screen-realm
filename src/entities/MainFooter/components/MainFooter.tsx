@@ -47,8 +47,8 @@ const Footer = styled(Container)`
 `;
 
 const FooterIcons = styled.div`
-  width: 50px;
-  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   background: url(${({ icon }: PropsStyled) => (icon ? icon : "")});
   background-position: center;
   background-repeat: no-repeat;

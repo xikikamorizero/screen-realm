@@ -4,10 +4,9 @@ import styled from "styled-components";
 import { SearchFilm } from "../../../../widgets";
 
 const SearchFilms = () => {
-
   return (
     <Container>
-   <SearchFilm />
+      <SearchFilm />
     </Container>
   );
 };

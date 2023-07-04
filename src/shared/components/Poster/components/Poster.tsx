@@ -6,15 +6,18 @@ import error from "../assets/errorImage.jpg";
 type Props = {
   image?: string;
   width?: string;
+  height?: string;
 };
 
 export const Poster = ({ ...props }: Props) => {
-  return <ImagePoster image={props.image} />;
+  return <ImagePoster image={props.image} width={props.width} height={props.height} />;
 };
 
 const ImagePoster = styled.div`
   width: ${({ width }: Props) => (width ? width : "438px")};
-  height: ${({ width }: Props) => (width ? width : "438px")};
+  height: ${({ height }: Props) => (height ? height : "438px")};
+  min-width: 150px;
+  min-height: 200px;
   background: url(${({ image }: Props) => (image ? image : error)});
   background-position: center;
   background-repeat: no-repeat;

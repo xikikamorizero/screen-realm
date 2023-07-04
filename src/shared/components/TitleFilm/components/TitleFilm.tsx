@@ -12,7 +12,7 @@ export const TitleFilm = ({ ...props }: Props) => {
   return (
     <Container>
       <Name>{props.name}</Name>
-      {props.ageRating? <AgeRating>{props.ageRating}</AgeRating>:null}
+      {props.ageRating ? <AgeRating>{props.ageRating} +</AgeRating> : null}
     </Container>
   );
 };
@@ -22,6 +22,10 @@ const Container = styled.div`
   display: flex;
   gap: 15px;
   justify-content: space-between;
+
+  @media (max-width: 700px) {
+    gap: 5px;
+  }
 `;
 
 const Name = styled.div`
@@ -30,13 +34,17 @@ const Name = styled.div`
   font-weight: 700;
   font-size: 48px;
   line-height: 52px;
+  @media (max-width: 700px) {
+    font-size: 38px;
+  }
 `;
 
 const AgeRating = styled.div`
   margin-top: 10px;
-  min-width: ${({ width }: Props) => (width ? width : "30px")};
-  max-height: ${({ height }: Props) => (height ? height : "30px")};
+  min-width: 30px;
+  max-height: 30px;
   color: var(--white);
+  padding: 5px 10px 5px 10px;
 
   font-style: normal;
   font-weight: 700;
@@ -49,4 +57,13 @@ const AgeRating = styled.div`
 
   border-radius: 10px;
   background-color: var(--secondary);
+
+  @media (max-width: 700px) {
+    min-width: 33px;
+    max-height: 20px;
+    padding: 2px 3px 2px 3px;
+    font-size: 8px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
 `;

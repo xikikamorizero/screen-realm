@@ -14,14 +14,20 @@ export const useList = () => {
   
     useEffect(() => {
       if (fetching) {
+        if(store.page == 1){
+          store.setLoader(true);
+        }
         global.store.list.getList
           .request({
             type: 'TOP_250_BEST_FILMS',
             page: store.page,
           })
           .then((response) => {
-            store.list = [...store.list, ...response.data.films]
-            store.page = store.page + 1
+            store.setList([...store.list, ...response.data.films]);
+            if(store.page == 1){
+              store.setLoader(false);
+            }
+            store.setPage(store.page + 1);
             setTotalCount(response.data.pagesCount);
           })
           .finally(() => {

@@ -7,6 +7,7 @@ import { GridPoster } from "../../../shared/components";
 import { Input } from "../../../shared/components";
 import { Context as globalContext } from "../../../shared/api/context";
 import { Context } from "../lib/context";
+import { Loader } from "../../../shared/components";
 import search from "../assets/search.png";
 import filter from "../assets/filter.png";
 
@@ -18,10 +19,10 @@ export const SearchFilm = observer(() => {
   const [filterState, setFilterState] = useState(false);
 
   const handleSelectGenre = (event: ChangeEvent<HTMLSelectElement>) => {
-    store.genres = [Number(event.target.value)];
+    store.setGenres([Number(event.target.value)]);
   };
   const handleSelectCountry = (event: ChangeEvent<HTMLSelectElement>) => {
-    store.countries = [Number(event.target.value)];
+    store.setCountries([Number(event.target.value)]);
   };
 
   const cancelPreviousRequest = () => {
@@ -34,21 +35,23 @@ export const SearchFilm = observer(() => {
     cancelPreviousRequest();
 
     const timeout = setTimeout(() => {
+      store.setLoader(true);
       global.store.list.getFilmsFilter
         .request({
-          keyword: store.keyword,
-          page: store.page,
-          countries: store.countries,
-          genres: store.genres,
-          order: store.order,
-          type: store.type,
-          ratingFrom: store.ratingFrom,
-          ratingTo: store.ratingTo,
-          yearFrom: store.yearFrom,
-          yearTo: store.yearTo,
+          keyword: store.getKeyword,
+          page: store.getPage,
+          countries: store.getCountries,
+          genres: store.getGenres,
+          order: store.getOrder,
+          type: store.getType,
+          ratingFrom: store.getRatingFrom,
+          ratingTo: store.getRatingTo,
+          yearFrom: store.getYearFrom,
+          yearTo: store.getYearTo,
         })
         .then((response) => {
-          store.list = [...response.data.items];
+          store.setList([...response.data.items]);
+          store.setLoader(false);
         });
     }, 300);
 
@@ -56,207 +59,219 @@ export const SearchFilm = observer(() => {
   };
 
   useEffect(() => {
-    if (store.keyword !== "") {
+    if (store.getKeyword !== "") {
       Search();
     } else {
-      store.list = [];
+      store.setList([]);
     }
-  }, [store.keyword, filterSearch]);
+  }, [store.getKeyword, filterSearch]);
 
   return (
     <Container>
-      <ContainerSearchinput>
+      <ContainerSearch>
         <Icon icon={search} />
         <Input
           type={"text"}
           placeholder={"Поиск..."}
           onChange={(e) => {
-            store.keyword = String(e.target.value);
+            store.setKeyword(String(e.target.value));
           }}
         />
-        <FilterIcon onClick={()=>{setFilterState(!filterState)}} icon={filter} />
-      </ContainerSearchinput>
-
-{filterState?
-      <Filter>
-        <ContainerNumberRating>
-          <ContainerInput>
-            <Title>Год</Title>
-            <InputFilter
-              onChange={(e) => {
-                store.yearFrom = Number(e.target.value);
-              }}
-              type={"number"}
-              placeholder={"от"}
-            />
-            <InputFilter
-              onChange={(e) => {
-                store.yearTo = Number(e.target.value);
-              }}
-              type={"number"}
-              placeholder={"до"}
-            />
-          </ContainerInput>
-          <ContainerInput>
-            <Title>Рейтинг</Title>
-            <InputFilter
-              onChange={(e) => {
-                store.ratingFrom = Number(e.target.value);
-              }}
-              type={"number"}
-              placeholder={"от"}
-            />
-            <InputFilter
-              onChange={(e) => {
-                store.ratingTo = Number(e.target.value);
-              }}
-              type={"number"}
-              placeholder={"до"}
-            />
-          </ContainerInput>
-        </ContainerNumberRating>
-
-        <SelectContainer>
-          <TypeContainer>
-            <Title>Жанры</Title>
-            <Select
-              value={store.genres.length == 0 ? 0 : Number(store.genres[0])}
-              onChange={handleSelectGenre}
-            >
-              <option value="">Выберите жанр</option>
-              <option value="1">триллер</option>
-              <option value="2">драма</option>
-              <option value="5">детектив</option>
-              <option value="6">фантастика</option>
-              <option value="7">приключения</option>
-              <option value="11">боевик</option>
-              <option value="12">фэнтези</option>
-              <option value="13">комедия</option>
-              <option value="24">аниме</option>
-            </Select>
-          </TypeContainer>
-
-          <TypeContainer>
-            <Title>Страны</Title>
-            <Select
-              value={
-                store.countries.length == 0 ? 0 : Number(store.countries[0])
-              }
-              onChange={handleSelectCountry}
-            >
-              <option value="">Выберите страну</option>
-              <option value="1">США</option>
-              <option value="2">Швейцария</option>
-              <option value="3">Франция</option>
-              <option value="5">Великобритания</option>
-              <option value="7">Индия</option>
-              <option value="9">Германия</option>
-              <option value="10">Италия</option>
-              <option value="14">Канада</option>
-              <option value="16">Япония</option>
-              <option value="21">Китай</option>
-              <option value="34">Россия</option>
-            </Select>
-          </TypeContainer>
-        </SelectContainer>
-
-        <ContainerNumberRating>
-          <TypeContainer>
-            <Title>Type</Title>
-            <TagContainer>
-              <Tag
-                background={store.type == "FILM"}
-                onClick={() => {
-                  store.type = "FILM";
-                }}
-              >
-                FILM
-              </Tag>
-              <Tag
-                background={store.type == "TV_SHOW"}
-                onClick={() => {
-                  store.type = "TV_SHOW";
-                }}
-              >
-                TV_SHOW
-              </Tag>
-              <Tag
-                background={store.type == "TV_SERIES"}
-                onClick={() => {
-                  store.type = "TV_SERIES";
-                }}
-              >
-                TV_SERIES
-              </Tag>
-              <Tag
-                background={store.type == "MINI_SERIES"}
-                onClick={() => {
-                  store.type = "MINI_SERIES";
-                }}
-              >
-                MINI_SERIES
-              </Tag>
-              <Tag
-                background={store.type == "ALL"}
-                onClick={() => {
-                  store.type = "ALL";
-                }}
-              >
-                ALL
-              </Tag>
-            </TagContainer>
-          </TypeContainer>
-          <TypeContainer>
-            <Title>Sort</Title>
-            <TagContainer>
-              <Tag
-                background={store.order == "RATING"}
-                onClick={() => {
-                  store.order = "RATING";
-                }}
-              >
-                RATING
-              </Tag>
-              <Tag
-                background={store.order == "NUM_VOTE"}
-                onClick={() => {
-                  store.order = "NUM_VOTE";
-                }}
-              >
-                NUM_VOTE
-              </Tag>
-              <Tag
-                background={store.order == "YEAR"}
-                onClick={() => {
-                  store.order = "YEAR";
-                }}
-              >
-                YEAR
-              </Tag>
-            </TagContainer>
-          </TypeContainer>
-        </ContainerNumberRating>
-        <FilterButton
+        <FilterIcon
           onClick={() => {
-            setFilterSearch(!filterSearch);
+            setFilterState(!filterState);
           }}
-        >
-          Filter
-        </FilterButton>
-      </Filter> : null
-}
+          icon={filter}
+        />
+      </ContainerSearch>
 
-      <ContainerGrid>
-        {store.list.map((a: Film, i) => (
-          <GridPoster
-            image={a.posterUrl}
-            creator={a.nameEn}
-            name={a.nameRu}
-            id={a.filmId}
-            key={i}
-          />
-        ))}
-      </ContainerGrid>
+      {filterState ? (
+        <Filter>
+          <ContainerFilterPanel>
+            <ContainerInput>
+              <Title>Год</Title>
+              <InputFilter
+                onChange={(e) => {
+                  store.setYearFrom(Number(e.target.value));
+                }}
+                type={"number"}
+                placeholder={"от"}
+              />
+              <InputFilter
+                onChange={(e) => {
+                  store.setYearTo(Number(e.target.value));
+                }}
+                type={"number"}
+                placeholder={"до"}
+              />
+            </ContainerInput>
+            <ContainerInput>
+              <Title>Рейтинг</Title>
+              <InputFilter
+                onChange={(e) => {
+                  store.setRatingFrom(Number(e.target.value));
+                }}
+                type={"number"}
+                placeholder={"от"}
+              />
+              <InputFilter
+                onChange={(e) => {
+                  store.setRatingTo(Number(e.target.value));
+                }}
+                type={"number"}
+                placeholder={"до"}
+              />
+            </ContainerInput>
+          </ContainerFilterPanel>
+
+          <ContainerFilterPanel>
+            <TypeContainer>
+              <Title>Type</Title>
+              <TagContainer>
+                <Tag
+                  background={store.getType == "FILM"}
+                  onClick={() => {
+                    store.setType("FILM");
+                  }}
+                >
+                  FILM
+                </Tag>
+                <Tag
+                  background={store.getType == "TV_SHOW"}
+                  onClick={() => {
+                    store.setType("TV_SHOW");
+                  }}
+                >
+                  TV_SHOW
+                </Tag>
+                <Tag
+                  background={store.getType == "TV_SERIES"}
+                  onClick={() => {
+                    store.setType("TV_SERIES");
+                  }}
+                >
+                  TV_SERIES
+                </Tag>
+                <Tag
+                  background={store.getType == "MINI_SERIES"}
+                  onClick={() => {
+                    store.setType("MINI_SERIES");
+                  }}
+                >
+                  MINI_SERIES
+                </Tag>
+                <Tag
+                  background={store.getType == "ALL"}
+                  onClick={() => {
+                    store.setType("ALL");
+                  }}
+                >
+                  ALL
+                </Tag>
+              </TagContainer>
+            </TypeContainer>
+            <TypeContainer>
+              <Title>Sort</Title>
+              <TagContainer>
+                <Tag
+                  background={store.getOrder == "RATING"}
+                  onClick={() => {
+                    store.setOrder("RATING");
+                  }}
+                >
+                  RATING
+                </Tag>
+                <Tag
+                  background={store.getOrder == "NUM_VOTE"}
+                  onClick={() => {
+                    store.setOrder("NUM_VOTE");
+                  }}
+                >
+                  NUM_VOTE
+                </Tag>
+                <Tag
+                  background={store.getOrder == "YEAR"}
+                  onClick={() => {
+                    store.setOrder("YEAR");
+                  }}
+                >
+                  YEAR
+                </Tag>
+              </TagContainer>
+            </TypeContainer>
+          </ContainerFilterPanel>
+
+          <ContainerFilterPanel style={{ justifyContent: "space-between" }}>
+            <SelectContainer>
+              <TypeContainer>
+                <Title>Жанры</Title>
+                <Select
+                  value={store.getGenres.length == 0 ? 0 : Number(store.getGenres[0])}
+                  onChange={handleSelectGenre}
+                >
+                  <option value="">Выберите жанр</option>
+                  <option value="1">триллер</option>
+                  <option value="2">драма</option>
+                  <option value="5">детектив</option>
+                  <option value="6">фантастика</option>
+                  <option value="7">приключения</option>
+                  <option value="11">боевик</option>
+                  <option value="12">фэнтези</option>
+                  <option value="13">комедия</option>
+                  <option value="24">аниме</option>
+                </Select>
+              </TypeContainer>
+
+              <TypeContainer>
+                <Title>Страны</Title>
+                <Select
+                  value={
+                    store.getCountries.length == 0 ? 0 : Number(store.getCountries[0])
+                  }
+                  onChange={handleSelectCountry}
+                >
+                  <option value="">Выберите страну</option>
+                  <option value="1">США</option>
+                  <option value="2">Швейцария</option>
+                  <option value="3">Франция</option>
+                  <option value="5">Великобритания</option>
+                  <option value="7">Индия</option>
+                  <option value="9">Германия</option>
+                  <option value="10">Италия</option>
+                  <option value="14">Канада</option>
+                  <option value="16">Япония</option>
+                  <option value="21">Китай</option>
+                  <option value="34">Россия</option>
+                </Select>
+              </TypeContainer>
+            </SelectContainer>
+
+            <FilterButton
+              onClick={() => {
+                setFilterSearch(!filterSearch);
+              }}
+            >
+              Filter
+            </FilterButton>
+          </ContainerFilterPanel>
+        </Filter>
+      ) : null}
+      {store.getKeyword !== ""? <Title>Результат поиска:</Title>: null}
+      {store.getLoader ? (
+        <Loader loaderSearch={true} />
+      ) : (
+        <ContainerGrid>
+          {store.getList.map((a: Film, i) => (
+            <GridPoster
+              image={a.posterUrl}
+              creator={a.nameEn}
+              name={a.nameRu}
+              id={a.filmId}
+              key={i}
+            />
+          ))}
+        </ContainerGrid>
+      )}
     </Container>
   );
 });
@@ -265,6 +280,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 `;
 type Props = {
@@ -272,7 +288,7 @@ type Props = {
   useList?: (s: string) => void;
 };
 
-const ContainerSearchinput = styled.div`
+const ContainerSearch = styled.div`
   width: 100%;
   display: flex;
   gap: 20px;
@@ -298,7 +314,7 @@ const FilterIcon = styled.div`
   cursor: pointer;
 `;
 const Filter = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   gap: 20px;
   flex-direction: column;
@@ -307,6 +323,7 @@ const Filter = styled.div`
 `;
 const InputFilter = styled.input`
   width: 100%;
+  min-width: 100px;
   padding: 5px;
   background-color: var(--main);
   border: 1px solid var(--white);
@@ -320,7 +337,8 @@ const InputFilter = styled.input`
 `;
 const ContainerInput = styled.div`
   display: flex;
-  width: 100%;
+  width: 45%;
+  min-width: 300px;
   gap: 10px;
 `;
 const Title = styled.div`
@@ -330,11 +348,12 @@ const Title = styled.div`
   font-weight: 500;
   line-height: normal;
 `;
-const ContainerNumberRating = styled.div`
-  width: 80%;
+const ContainerFilterPanel = styled.div`
+  width: 100%;
   display: flex;
-  gap: 25px;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 40px;
 `;
 const TypeContainer = styled.div`
   display: flex;
@@ -378,13 +397,18 @@ const Select = styled.select`
   padding: 5px;
 `;
 const SelectContainer = styled.div`
-  width: 80%;
   display: flex;
   gap: 20px;
 `;
 const FilterButton = styled.div`
+  width: 100px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   color: var(--white);
-  text-align: center;
   font-size: 30px;
   font-style: normal;
   font-weight: 700;
@@ -392,8 +416,8 @@ const FilterButton = styled.div`
 
   cursor: pointer;
 
-  padding: 20px;
-  border-radius: 20px;
+  border-radius: 10px;
+  border: 1px solid silver;
   background-color: var(--secondary);
   -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);

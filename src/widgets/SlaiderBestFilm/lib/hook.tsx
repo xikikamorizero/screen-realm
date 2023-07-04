@@ -7,7 +7,9 @@ import { Context } from "./context";
 export const useList = () => {
   const { store } = useContext(Context);
   const global = useContext(globalContext);
+
   useEffect(() => {
+    store.setLoader(true);
     global.store.list.getList
       .request({
         type: "TOP_250_BEST_FILMS",
@@ -15,13 +17,14 @@ export const useList = () => {
       })
       .then((response) => {
         if (response == undefined) {
-          store.responseStatus = 402;
+          store.setResponseStatus(402);
           global.store.error = 402;
           return;
         }
-        store.list = [...response.data.films];
+        store.setList([...response.data.films]);
+        store.setLoader(false);
       });
   }, []);
 
-  return store.list;
+  return {list:store.list, loader:store.loader};
 };

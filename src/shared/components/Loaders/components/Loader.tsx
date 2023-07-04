@@ -1,22 +1,25 @@
 import styled from 'styled-components';
 import logo from '../assets/logo.png';
 
+type Props = {
+    loaderSearch?:boolean;
+}
 
-export const Loader = () => {
+export const Loader = ({...props}:Props) => {
     return (
-        <Root>
+        <Root loaderSearch={props.loaderSearch}>
             <Logo src={logo}/>  
         </Root>
     );
 };
 
 const Root = styled.div`
-  position: fixed;
+  position: ${({loaderSearch}: Props) => loaderSearch? 'static':'fixed'};
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: ${({loaderSearch}: Props) => loaderSearch? 'translateX(0%)':'translateX(-50%)'} ;
   width: 100vw;
-  height: 100vh;
+  height: ${({loaderSearch}: Props) => loaderSearch? '350px':'100vh'};
   background: var(--main);
   z-index: 99999999999;
   display: flex;

@@ -6,7 +6,7 @@ import {
   Rating,
   TitleFilm,
   SlaiderContainer,
-  MainPoster
+  MainPoster,
 } from "../../../shared/components";
 import error from "../assets/errorImage.jpg";
 import * as types from "../../../shared/api/types";
@@ -28,7 +28,7 @@ export const MainFilm = ({ ...props }: Props) => {
   return (
     <Container>
       <ContainerHead>
-        <Poster image={props.image} />
+        <Poster image={props.image} height={'33vw'} width={'30vw'} />
         <InfoBlock>
           <TitleFilm name={props.name} ageRating={props.ageRating} />
           <SecondaryInfoBlock>
@@ -52,24 +52,25 @@ export const MainFilm = ({ ...props }: Props) => {
         ))}
       </SlaiderContainer>
 
-      {props.similars?.length!==0 && props.similars ? (
+      {props.similars?.length !== 0 && props.similars ? (
         <Container>
           <Title style={{ fontSize: "25px" }}>Похожие фильмы</Title>
           <SlaiderContainer>
-            {props.similars.map((a,i)=> 
-            <MainPoster
-            id={a.filmId}
-            image={a.posterUrl}
-            creator={a.rating}
-            name={a.nameRu}
-            key={i}
-          />)}
+            {props.similars.map((a, i) => (
+              <MainPoster
+                id={a.filmId}
+                image={a.posterUrl}
+                name={a.nameRu}
+                key={i}
+              />
+            ))}
           </SlaiderContainer>
         </Container>
       ) : null}
     </Container>
   );
 };
+
 const Container = styled.div`
   width: 100%;
   display: flex;
@@ -81,6 +82,10 @@ const ContainerHead = styled.div`
   display: flex;
   gap: 20px;
   justify-content: space-between;
+
+  @media (max-width: 700px) {
+    gap: 10 px;
+  }
 `;
 const InfoBlock = styled.div`
   max-width: 60%;
@@ -100,6 +105,10 @@ const Title = styled.div`
   font-size: 16px;
   font-style: normal;
   font-weight: 200;
+
+  @media (max-width: 700px) {
+    font-size: 10px;
+  }
 `;
 
 const Image = styled.div`
@@ -110,4 +119,3 @@ const Image = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
-const ContainerScreenshot = styled.div``;

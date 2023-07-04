@@ -49,6 +49,11 @@ const Text = styled.div`
   font-size: 16px;
   line-height: 22px;
   color: var(--white);
+
+  @media (max-width: 700px) {
+    font-size: 13px;
+    line-height: 18px;
+  }
 `;
 const FullText = styled.a`
   margin-left: 5px;

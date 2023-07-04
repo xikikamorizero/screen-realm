@@ -35,29 +35,28 @@ export const HeaderBanner = () => {
     setIsAnim(true);
   }, [map]);
 
-  var h =
-    "https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg";
+  var h ="";
 
   switch (map) {
     case 1:
       h =
-        "https://img.freepik.com/free-vector/abstract-blue-geometric-shapes-background_1035-17545.jpg";
+        "https://www.film.ru/sites/default/files/filefield_paths/smnq.jpg";
       break;
     case 2:
       h =
-        "https://png.pngtree.com/thumb_back/fh260/background/20200714/pngtree-modern-double-color-futuristic-neon-background-image_351866.jpg";
+        "https://riviera-mall.uz/wp-content/uploads/riviera-mall__cinema-bg.jpg";
       break;
     case 3:
       h =
-        "https://img.freepik.com/free-photo/grunge-paint-background_1409-1337.jpg";
+        "https://culturalforum.ru/content/news/71/718672dab560aa9e0de1b4165f0a94b2-cropped.jpg";
       break;
     case 4:
       h =
-        "https://marketplace.canva.com/EAD2962NKnQ/2/0/1600w/canva-rainbow-gradient-pink-and-purple-virtual-background-_Tcjok-d9b4.jpg";
+        "https://kinotv.ru/upload/delight.webpconverter/local/templates/kinochannel/static/images/watch/watch-bg-mob.jpg.webp?1676819611214790";
       break;
     default:
       h =
-        "https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg";
+        "https://newcdn.igromania.ru/mnt/news/d/5/0/d/8/d/125395/12b0b736a5c4b4d1_original.webp";
       break;
   }
 
@@ -153,11 +152,11 @@ const Container = styled.div`
 
 const Background = styled.div`
   width: 100%;
-  min-height: 70vh;
+  min-height: 100vh;
 
   background-image: url(${({ background }: HeadersProps) => background});
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   background-size: cover;
   opacity: 0.8;
   transition: opacity 0.1s;

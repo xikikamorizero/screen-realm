@@ -3,11 +3,12 @@ import styled from "styled-components";
 
 type Props = {
    header?:React.ReactNode;
+   background?:boolean;
 }
 
 export const HeaderContainer = ({ ...props }: Props) => {
     return (
-        <Container>
+        <Container background={props.background}>
            {props.header}
         </Container>
     )
@@ -24,6 +25,7 @@ top: 0;
 left: 0;
 z-index: 1;
 
-background: rgba(0, 0, 0, 0.92);
-opacity: 0.8;
+transition: background-color 0.3s ease;
+
+background:${({ background }: Props) => background? 'black': 'rgba(0, 0, 0, 0.567);'};
 `

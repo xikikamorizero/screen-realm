@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useEffect} from 'react';
 
 import {Context as globalContext} from '../../../shared/api/context';
 
@@ -10,25 +10,25 @@ export const useMovie = () => {
 
 
     useEffect(() => {
-        store.movie = null;
-        store.loader =  true;
+        store.setMovie(null);
+        store.setLoader(true);
         global.store.movie.getMovie.request({
-            id: store.id
+            id: store.movieId
         }).then(r => {
-            store.movie = r.data
+            store.setMovie(r.data); 
         });
         global.store.movie.getImages.request({
-            id:store.id
+            id:store.movieId
         },{type:'SCREENSHOT', page:1}).then(r => {
-            store.screenshot = r.data.items
+            store.setScreenshot(r.data.items); 
         });
         global.store.movie.getSimilars.request({
-            id:store.id
+            id:store.movieId
         }).then(r => {
-            store.similar = r.data.items
-            store.loader = false;
+            store.setSimilar(r.data.items); 
+            store.setLoader(false);
         });
-    }, [store.id]);
+    }, [store.movieId]);
 
     return {film:store.movie, screenshot: store.screenshot, similar: store.similar};
 };

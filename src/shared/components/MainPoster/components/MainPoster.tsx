@@ -61,6 +61,10 @@ const Name = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+
+  @media (max-width: 700px) {
+    font-size: 13px;
+  }
 `;
 
 const Block = styled.div`

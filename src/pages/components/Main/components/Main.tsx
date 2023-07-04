@@ -7,8 +7,8 @@ import {
 } from "../../../../widgets";
 import { routers } from "../../../../shared/const";
 import styled from "styled-components";
-import { MainBanner } from "../../../../entities/MainBanner/components/MainBanner";
-import { HeaderBanner } from "../../../../shared/components";
+import { MainBanner } from "../../../../entities";
+import { AnimBanner } from "../../../../entities";
 import icon1 from '../assets/icon1.png';
 import icon2 from '../assets/icon2.png';
 import icon3 from '../assets/icon3.png';
@@ -17,7 +17,7 @@ import icon3 from '../assets/icon3.png';
 const Main = () => {
   return (
     <Container>
-      <HeaderBanner />
+      <AnimBanner />
       <SlaiderPopular
         text={"Popular"}
         navigate={routers.general.path.top100film}
@@ -40,7 +40,7 @@ const Main = () => {
 };
 
 const Container = styled.div`
-  padding-top: calc(70vh + 50px);
+  padding-top: calc(100vh + 50px);
   padding-bottom: 50px;
   width: 100%;
   display: flex;
@@ -50,8 +50,9 @@ const Container = styled.div`
 const BannerContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  gap:10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap:40px;
 `;
 
 export const main: TPages = [<Main />];

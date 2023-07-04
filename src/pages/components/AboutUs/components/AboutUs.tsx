@@ -61,7 +61,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 25px;
-  padding-bottom: 20px;
 `;
 const TitleMain = styled.div`
   color: var(--secondary);

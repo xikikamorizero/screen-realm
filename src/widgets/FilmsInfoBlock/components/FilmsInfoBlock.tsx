@@ -10,7 +10,7 @@ import { Loader } from "../../../shared/components";
 export const FilmInfoBlock = observer(() => {
   const location = useLocation();
   const { store } = useContext(Context);
-  store.id = Number(location.pathname.split("/")[2]);
+  store.setMovieId(Number(location.pathname.split("/")[2]));
 
   const result = useMovie();
   if (store.loader) {

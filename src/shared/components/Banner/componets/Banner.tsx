@@ -17,7 +17,7 @@ export const Banner = ({ icon, text }: Props) => {
 }
 
 const Container = styled.div`
-width: 100%;
+max-width: 400px;
 padding: 0px 58px 0px 58px;
 border-radius: 25px;
 border: 2.5px solid rgba(255, 255, 255, 0.3);
@@ -28,4 +28,8 @@ justify-content: center;
 align-items: center;
 gap: 59px;
 min-height: 163px;
+
+@media (max-width: 700px) {
+    min-height: 100px;
+  }
 `

@@ -1,0 +1,1 @@
+export {MainPosterSkeleton} from './components/MainPoster';

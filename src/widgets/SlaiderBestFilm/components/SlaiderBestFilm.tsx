@@ -9,9 +9,13 @@ type Props = {
 };
 
 export const SlaiderBest = observer(({ ...props }: Props) => {
-  const list = useList();
-  if (list.length === 0) {
-    return null;
-  }
-  return <Slaider array={list} text={props.text} navigate={props.navigate} />;
+  const { list, loader } = useList();
+  return (
+    <Slaider
+      loader={loader}
+      array={list}
+      text={props.text}
+      navigate={props.navigate}
+    />
+  );
 });

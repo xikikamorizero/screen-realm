@@ -1,1 +1,1 @@
-import { MainBanner } from "./components/MainBanner";
+export { MainBanner } from "./components/MainBanner";

@@ -5,10 +5,10 @@ import "./styles/colors.css";
 import { CheckAccountAccess } from "../processes";
 import { BrowserRouter } from "react-router-dom";
 import { protected_routers, public_routers } from "./routers";
-import { Container, HeaderBanner } from "../shared/components";
-import { MainHeader } from "../entities/MainHeader";
+import { Container } from "../shared/components";
+import { MainHeader } from "../entities";
 import styled from "styled-components";
-import { MainFooter } from "../entities/MainFooter";
+import { MainFooter } from "../entities";
 
 const App = () => {
   return (
@@ -36,6 +36,6 @@ const AppContainer = styled.div`
 
 const Center = styled(Container)`
   min-height: 93vh;
-  padding-top: 90px;
+  padding: 100px 0px 90px 0px;
 `;
 export default App;

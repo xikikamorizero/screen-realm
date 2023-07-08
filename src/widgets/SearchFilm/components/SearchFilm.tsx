@@ -59,6 +59,7 @@ export const SearchFilm = observer(() => {
   };
 
   useEffect(() => {
+    global.store.error = 0
     if (store.getKeyword !== "") {
       Search();
     } else {

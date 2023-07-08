@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { HeaderContainer } from "../../../shared/components";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -21,16 +21,16 @@ export const MainHeader = ({ ...props }: Props) => {
       setScrolled(isScrolled);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <HeaderContainer
-    background={scrolled}
+      background={scrolled}
       header={
         <Header>
           <Icon
@@ -43,17 +43,18 @@ export const MainHeader = ({ ...props }: Props) => {
             icon={logo}
           />
           <Navbar>
+            <TitleNavbar onClick={()=>{navigate('/aboutUs')}}>О нас</TitleNavbar>
             <Icon
               width={"40px"}
               height={"40px"}
               iconSize={"40px"}
               icon={search}
-              onClick={()=>{navigate('/search')}}
+              onClick={() => {
+                navigate("/search");
+              }}
             />
           </Navbar>
-          <SecondaryBlock>
-
-          </SecondaryBlock>
+          <SecondaryBlock></SecondaryBlock>
         </Header>
       }
     />
@@ -96,7 +97,16 @@ const Navbar = styled.div`
   align-items: center;
   justify-content: right;
   text-align: center;
-  text-decoration-line: underline;
+`;
+
+const TitleNavbar = styled.div`
+  color: var(--white);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  cursor: pointer;
 `;
 
 const SecondaryBlock = styled.div``;

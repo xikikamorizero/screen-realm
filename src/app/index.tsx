@@ -1,5 +1,4 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React,{useContext} from "react";
 import "./styles/index.css";
 import "./styles/colors.css";
 import { CheckAccountAccess } from "../processes";
@@ -9,14 +8,16 @@ import { Container } from "../shared/components";
 import { MainHeader } from "../entities";
 import styled from "styled-components";
 import { MainFooter } from "../entities";
+import { Context } from "../shared/api";
 
 const App = () => {
+  const {store} = useContext(Context)
+  console.log(store.error)
   return (
     <AppContainer>
       <BrowserRouter>
       <MainHeader />
-      <Center>
-        
+      <Center style={store.error == 402 ?{maxHeight:'93vh', overflow:'hidden'}:{}}>
           <CheckAccountAccess
             protectedRoutes={protected_routers}
             publicRoutes={public_routers}

@@ -7,6 +7,7 @@ import {
   top250film,
   recommendations,
   search,
+  error
 } from "../../pages";
 import { routers } from "../../shared/const";
 
@@ -18,6 +19,7 @@ export const public_routers = getRoutes([
   [routers.general.path.award, recommendations],
   [routers.general.path.search, search],
   [routers.general.path.aboutUs, aboutUs],
+  ['/error', error],
 ]);
 
 export const protected_routers = getRoutes([["*", [<div>error</div>]]]);

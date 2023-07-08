@@ -24,8 +24,8 @@ export const FilmInfoBlock = observer(() => {
       rating={result.film?.ratingKinopoisk}
       countRating={result.film?.ratingKinopoiskVoteCount}
       ageRating={result.film?.ratingAgeLimits}
-      startYear={result.film?.startYear}
-      endYear={result.film?.endYear}
+      budget={result.box_office?.budget}
+      worldwideBoxOffice={result.box_office?.worldwideBoxOffice}
       screenshot={result.screenshot}
       similars={result.similar}
     />

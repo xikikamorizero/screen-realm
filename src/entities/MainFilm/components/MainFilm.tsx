@@ -18,8 +18,8 @@ type Props = {
   rating?: number;
   countRating?: number;
   ageRating?: string;
-  startYear?: number;
-  endYear?: number;
+  budget?: string;
+  worldwideBoxOffice?: string;
   screenshot?: types.MovieImage[];
   similars?: types.Film[];
 };
@@ -32,10 +32,10 @@ export const MainFilm = ({ ...props }: Props) => {
         <InfoBlock>
           <TitleFilm name={props.name} ageRating={props.ageRating} />
           <SecondaryInfoBlock>
-            {props.startYear && props.endYear ? (
+            {props.budget && props.worldwideBoxOffice ? (
               <Info>
-                <Title>год начала производства: {props.startYear}</Title>
-                <Title>год окончания производства: {props.endYear}</Title>
+                <Title>бюджет: {props.budget}</Title>
+                <Title>мировые сборы: {props.worldwideBoxOffice}</Title>
               </Info>
             ) : (
               <div></div>
@@ -89,6 +89,13 @@ const ContainerHead = styled.div`
 `;
 const InfoBlock = styled.div`
   max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap:25px;
+
+  @media (max-width: 700px) {
+    gap: 5px;
+  }
 `;
 const SecondaryInfoBlock = styled.div`
   width: 100%;

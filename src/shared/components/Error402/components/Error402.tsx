@@ -5,7 +5,9 @@ export const Error402 = () => {
   return (
     <Root>
       <Logo src={error} />
-      <Title>Превышено количество запросов</Title>
+      <Title>
+        Приносим прощения в данный момент у нас неполадки с сервером
+      </Title>
     </Root>
   );
 };
@@ -18,7 +20,7 @@ const Root = styled.div`
   width: 100vw;
   height: 100vh;
   background: var(--main);
-  z-index: -1;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -43,6 +45,8 @@ const Logo = styled.div`
   background-size: 7vw;
 `;
 const Title = styled.div`
+  max-width: 80%;
+  text-align: center;
   color: var(--white);
   font-size: 32px;
   font-style: normal;

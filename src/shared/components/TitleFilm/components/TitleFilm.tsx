@@ -35,7 +35,8 @@ const Name = styled.div`
   font-size: 48px;
   line-height: 52px;
   @media (max-width: 700px) {
-    font-size: 38px;
+    font-size: 28px;
+    line-height: 30px;
   }
 `;
 

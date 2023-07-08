@@ -5,12 +5,14 @@ import { observer } from "mobx-react-lite";
 import { Film } from "../../../shared/api/types";
 import { useList } from "../lib/hook";
 import { Context } from "../lib/context";
+import styled from "styled-components";
+import { Loader } from "../../../shared/components";
 
 export const RecommendationsList = observer(() => {
   const list = useList();
   const { store } = useContext(Context);
   const SkeletonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  if (store.loader) {
+  if (store.loader==1) {
     return (
       <ContainerGrid>
         {SkeletonArray.map((i) => (
@@ -20,16 +22,27 @@ export const RecommendationsList = observer(() => {
     );
   }
   return (
-    <ContainerGrid>
-      {list.map((a: Film, i) => (
-        <GridPoster
-          image={a.posterUrl}
-          creator={a.nameEn}
-          name={a.nameRu}
-          id={a.filmId}
-          key={i}
-        />
-      ))}
-    </ContainerGrid>
+    <Container>
+      <ContainerGrid>
+        {list.map((a: Film, i) => (
+          <GridPoster
+            image={a.posterUrl}
+            creator={a.nameEn}
+            name={a.nameRu}
+            id={a.filmId}
+            key={i}
+          />
+        ))}
+      </ContainerGrid>
+      {store.loader !== false && store.loader !== 1 ? (
+        <Loader loaderSearch={true} />
+      ) : null}
+    </Container>
   );
 });
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;

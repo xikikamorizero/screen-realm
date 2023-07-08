@@ -8,7 +8,7 @@ type Props = {
 export const Loader = ({...props}:Props) => {
     return (
         <Root loaderSearch={props.loaderSearch}>
-            <Logo src={logo}/>  
+            <Logo src={logo} loaderSearch={props.loaderSearch} />  
         </Root>
     );
 };
@@ -18,8 +18,8 @@ const Root = styled.div`
   top: 0;
   left: 50%;
   transform: ${({loaderSearch}: Props) => loaderSearch? 'translateX(0%)':'translateX(-50%)'} ;
-  width: 100vw;
-  height: ${({loaderSearch}: Props) => loaderSearch? '350px':'100vh'};
+  width: 100%;
+  height: ${({loaderSearch}: Props) => loaderSearch? '150px':'100vh'};
   background: var(--main);
   z-index: 99999999999;
   display: flex;
@@ -29,14 +29,15 @@ const Root = styled.div`
 
 type LogoProps = {
     src: string;
+    loaderSearch?:boolean;
 }
 
 const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 10vw;
-  height: 10vw;
+  width: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
+  height: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};;
 
   background-image: url(${({src}: LogoProps) => src});
   background-repeat: no-repeat;
@@ -51,15 +52,15 @@ const Logo = styled.div`
 
   @keyframes loader {
     0% {
-        background-size: 6vw;
+        background-size: ${({loaderSearch}: Props) => loaderSearch? '5vw':'6vw'};
         transform: rotate(0deg);
     }
     50% {
-        background-size: 10vw;
-        transform: rotate(180deg);
+        background-size: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};;
+        transform: rotate(180deg);  
     }
     100% {
-        background-size: 6vw;
+        background-size: ${({loaderSearch}: Props) => loaderSearch? '5vw':'6vw'};;
         transform: rotate(360deg);
     }
   }

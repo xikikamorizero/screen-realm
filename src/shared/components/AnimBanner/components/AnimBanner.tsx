@@ -4,9 +4,10 @@ import styled from "styled-components";
 export const Banner1 = () => {
   return (
     <Container>
-      <ContainerBanner>
-        <Title>Супер братья Марио</Title>
-        <RatingFilm color={"var(--highRating)"}>10</RatingFilm>
+      <ContainerBanner style={{top: '35%', left: '5%'}}>
+        <Title>
+          У нас вы найдете информацию о всех новых премьерах мирового кино
+        </Title>
       </ContainerBanner>
       <Background
         background={
@@ -20,9 +21,14 @@ export const Banner1 = () => {
 export const Banner2 = () => {
   return (
     <Container>
+        <ContainerBanner style={{minWidth:'580px' ,top: '60%', left: '5%'}}>
+        <Title>
+        Интересные факты о съемках ваших любимых фильмов и сериалов
+        </Title>
+      </ContainerBanner>
       <Background
         background={
-          "https://www.film.ru/sites/default/files/filefield_paths/smnq.jpg"
+          "https://www.soyuz.ru/public/uploads/files/2/7481175/20220408150437fd3d274f29.jpg"
         }
       />
     </Container>
@@ -32,6 +38,11 @@ export const Banner2 = () => {
 export const Banner3 = () => {
   return (
     <Container>
+       <ContainerBanner style={{maxWidth:'600px' ,top: '60%', right: '5%'}}>
+        <Title style={{}}>
+          Наш сайт поможет вам выбрать какой фильм посмотреть на выходных
+        </Title>
+      </ContainerBanner>
       <Background
         background={
           "https://riviera-mall.uz/wp-content/uploads/riviera-mall__cinema-bg.jpg"
@@ -61,20 +72,23 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
-  opacity: 0.6;
+  opacity: 0.3;
 `;
 
 const ContainerBanner = styled.div`
+  max-width: 600px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-self: center;
   gap: 20px;
   position: absolute;
-  top: 25%;
-  left: 5%;
   opacity: 1;
-  z-index: 9999;
+  z-index: 2;
+  padding: 20px 0px 20px 0px;
+  background-color: #00000067;
 `;
 const Title = styled.div`
+  width: 85%;
   font-size: 48px;
   font-style: normal;
   font-weight: 700;

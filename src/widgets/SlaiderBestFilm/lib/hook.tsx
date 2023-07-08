@@ -16,9 +16,9 @@ export const useList = () => {
         page: 1,
       })
       .then((response) => {
-        if (response == undefined) {
-          store.setResponseStatus(402);
-          global.store.error = 402;
+        if (response == undefined || response.status!==200){
+          store.setResponseStatus(response.status);
+          global.store.error = response.status;
           return;
         }
         store.setList([...response.data.films]);

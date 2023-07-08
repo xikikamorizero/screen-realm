@@ -2,8 +2,6 @@ import axios from 'axios';
 
 import {baseUrl} from './const';
 
-
-
 export const $kinopoisk_api_public = axios.create({
     baseURL: baseUrl,
     headers: {

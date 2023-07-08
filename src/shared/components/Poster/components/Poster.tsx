@@ -19,6 +19,7 @@ const ImagePoster = styled.div`
   min-width: 150px;
   min-height: 200px;
   background: url(${({ image }: Props) => (image ? image : error)});
+  background-color: silver;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

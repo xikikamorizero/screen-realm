@@ -23,7 +23,7 @@ justify-content: center;
 position: fixed;
 top: 0;
 left: 0;
-z-index: 1;
+z-index: 5;
 
 transition: background-color 0.3s ease;
 

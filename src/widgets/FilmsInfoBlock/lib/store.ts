@@ -1,8 +1,14 @@
 import { action, computed, makeAutoObservable } from "mobx";
 import * as types from '../../../shared/api/types';
 
+type Box_Office = {
+  budget:string;
+  worldwideBoxOffice:string;
+}
+
 export class Store {
   private _movie: types.Movie | null = null;
+  private _box_office: Box_Office | null = null;
   private _screenshot: types.MovieImage[] = [];
   private _similar: types.Film[] = [];
   private _loader: boolean = false;
@@ -32,6 +38,10 @@ export class Store {
     return this._movieId;
   }
 
+  public get box_office(): Box_Office | null {
+    return this._box_office;
+  }
+
   @action
   public setMovie(value: types.Movie | null):void {
     this._movie = value;
@@ -55,5 +65,10 @@ export class Store {
   @action
   public setMovieId(value: number):void {
     this._movieId = value;
+  }
+
+  @action
+  public setBoxOffice(value: Box_Office):void {
+    this._box_office = value;
   }
 }

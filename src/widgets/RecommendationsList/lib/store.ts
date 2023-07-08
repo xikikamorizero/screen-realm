@@ -4,7 +4,8 @@ import * as types from '../../../shared/api/types';
 export class Store {
   private _list: types.Film[] = [];
   private _page: number = 1;
-  private _loader: boolean = false;
+  private _loader:boolean | number = false;
+  private _pageCount: number | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -18,7 +19,11 @@ export class Store {
     return this._page;
   }
 
-  public get loader(): boolean {
+  public get pageCount(): number | null {
+    return this._pageCount;
+  }
+
+  public get loader(): boolean | number {
     return this._loader;
   }
 
@@ -33,7 +38,12 @@ export class Store {
   }
 
   @action
-  public setLoader(loader: boolean): void {
+  public setPageCount(pageCount: number): void {
+    this._pageCount = pageCount;
+  }
+
+  @action
+  public setLoader(loader: boolean | number): void {
     this._loader = loader;
   }
 }

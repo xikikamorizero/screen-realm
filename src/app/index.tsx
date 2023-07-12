@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import "./styles/index.css";
 import "./styles/colors.css";
 import { CheckAccountAccess } from "../processes";
@@ -11,19 +11,23 @@ import { MainFooter } from "../entities";
 import { Context } from "../shared/api";
 
 const App = () => {
-  const {store} = useContext(Context)
-  console.log(store.error)
+  const { store } = useContext(Context);
+  console.log(store.error);
   return (
     <AppContainer>
       <BrowserRouter>
-      <MainHeader />
-      <Center style={store.error == 402 ?{maxHeight:'93vh', overflow:'hidden'}:{}}>
+        <MainHeader />
+        <Center
+          style={
+            store.error == 402 ? { maxHeight: "93vh", overflow: "hidden" } : {}
+          }
+        >
           <CheckAccountAccess
             protectedRoutes={protected_routers}
             publicRoutes={public_routers}
           />
-      </Center>
-      <MainFooter />
+        </Center>
+        <MainFooter />
       </BrowserRouter>
     </AppContainer>
   );

@@ -43,4 +43,10 @@ export const Button = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  @media (max-width: 700px) {
+    width: 100px;
+    height: 30px;
+    font-size: 11px;
+  }
 `;

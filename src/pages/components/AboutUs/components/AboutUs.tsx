@@ -1,11 +1,13 @@
-import React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { TPages } from "gears-react";
 import styled from "styled-components";
 import { Context } from "../../../../shared/api";
 
 const AboutUs = () => {
-  const {store} = useContext(Context)
-  useEffect(()=>{store.error = 0},[])
+  const { store } = useContext(Context);
+  useEffect(() => {
+    store.error = 0;
+  }, []);
   return (
     <Container>
       <TitleMain>Позвольте немного рассказать о нас:</TitleMain>
@@ -55,6 +57,13 @@ const AboutUs = () => {
           интересным. Желаем приятного просмотра фильмов!
         </Text>
       </ContainerText>
+      <ContainerText>
+        <Title>Обратная связь</Title>
+        <Text>
+          Если вы столкнетесь с багами или заинтересуются моими навыками, можете
+          обратиться по следующему адресу: screenrealm64@gmail.com.
+        </Text>
+      </ContainerText>
     </Container>
   );
 };
@@ -91,7 +100,7 @@ const Title = styled.div`
   border-bottom: 1px solid silver;
 `;
 const ContainerText = styled.div`
-  padding: 10px 20px 10px 20px;
+  padding: 15px 20px 15px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;

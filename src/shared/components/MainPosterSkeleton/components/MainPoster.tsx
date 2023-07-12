@@ -48,7 +48,11 @@ const Anim = styled.div`
 const Image = styled(Anim)`
   width: 100%;
   height: 17vw;
-  border-radius: 20px;
+  border-radius: 10px;
+
+  @media (max-width: 700px) {
+    height: 25vw;
+  }
 `;
 
 const Creator = styled(Anim)`
@@ -67,6 +71,10 @@ const Name = styled(Anim)`
 
 const Block = styled.div`
   min-width: calc(20% - 10px);
+
+  @media (max-width: 700px) {
+    min-width: calc(25% - 10px);
+  }
 `;
 
 const Container = styled.div`

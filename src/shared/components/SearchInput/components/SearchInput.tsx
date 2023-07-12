@@ -10,4 +10,7 @@ export const Input = styled.input`
     outline: none;
     border-color: var(--main);
   }
+  @media (max-width: 700px) {
+    font-size: 35px;
+  }
 `;

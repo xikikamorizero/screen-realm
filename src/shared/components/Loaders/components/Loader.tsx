@@ -37,12 +37,12 @@ const Logo = styled.div`
   justify-content: center;
   align-items: center;
   width: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
-  height: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};;
+  height: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
 
   background-image: url(${({src}: LogoProps) => src});
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 10vw;
+  background-size:  ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
   animation-name: loader;
   animation-duration: 4s;
   transition: all 4s;

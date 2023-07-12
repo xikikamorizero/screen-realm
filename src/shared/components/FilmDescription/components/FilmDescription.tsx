@@ -8,7 +8,7 @@ const Container = styled.div`
 `;
 
 const Text = styled.div`
-  max-height: ${({ full }:Props) => (full ? "auto" : "110px")};
+  max-height: auto;
   overflow: hidden;
 
   font-style: normal;
@@ -20,10 +20,12 @@ const Text = styled.div`
   @media (max-width: 700px) {
     font-size: 13px;
     line-height: 18px;
+    max-height: ${({ full }:Props) => (full ? "auto" : "75px")};
   }
 `;
 
 const FullText = styled.a`
+display: none;
   margin-left: 5px;
   background-color: black;
 
@@ -42,6 +44,10 @@ const FullText = styled.a`
   /* identical to box height, or 0% */
   text-decoration-line: underline;
   color: var(--white);
+
+  @media (max-width: 700px) {
+   display: block;
+  }
 `;
 
 type Props = {

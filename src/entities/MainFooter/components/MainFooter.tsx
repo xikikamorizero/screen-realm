@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { Container } from "../../../shared/components";
 import icon from '../assets/footer.png'
 
 export const MainFooter = () => {
+  let navigate = useNavigate()
   return (
     <FooterContainer>
       <Footer>
-        <FooterIcons icon={icon} />
-        <a>Политика конфиденциальности~Лицензионное соглашение</a>
-        <a>© 2022, «Screen-realm». Все права защищены.</a>
+        <FooterIcons icon={icon} onClick={()=>{navigate('/')}} />
+        <a>© 2023, «Screen-realm». Все интересное у нас.</a>
       </Footer>
     </FooterContainer>
   );
@@ -25,7 +26,7 @@ const FooterContainer = styled.div`
   justify-content: center;
   border-top: 1px solid var(--borderSecondaty);
   position: relative;
-  z-index: 5;
+  z-index: 6;
 `;
 
 const Footer = styled(Container)`
@@ -55,4 +56,11 @@ const FooterIcons = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: 40px;
+  cursor: pointer;
+
+  @media (max-width: 700px) {
+    min-height: 30px;
+    min-width: 30px;
+    background-size: 25px;
+  }
 `;

@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Banner1 = () => {
   return (
     <Container>
-      <ContainerBanner style={{top: '35%', left: '5%'}}>
+      <ContainerBanner width={"600px"} top={"35%"} left={"5%"}>
         <Title>
           У нас вы найдете информацию о всех новых премьерах мирового кино
         </Title>
@@ -21,7 +21,7 @@ export const Banner1 = () => {
 export const Banner2 = () => {
   return (
     <Container>
-        <ContainerBanner style={{minWidth:'580px' ,top: '60%', left: '5%'}}>
+        <ContainerBanner width={"580px"} top={"60%"} left={"5%"}>
         <Title>
         Интересные факты о съемках ваших любимых фильмов и сериалов
         </Title>
@@ -38,7 +38,7 @@ export const Banner2 = () => {
 export const Banner3 = () => {
   return (
     <Container>
-       <ContainerBanner style={{maxWidth:'600px' ,top: '60%', right: '5%'}}>
+       <ContainerBanner width={"600px"} top={"60%"} right={"5%"} >
         <Title style={{}}>
           Наш сайт поможет вам выбрать какой фильм посмотреть на выходных
         </Title>
@@ -55,9 +55,12 @@ export const Banner3 = () => {
 type Props = {
   background: string;
 };
-type Rating = {
-  color?: string;
-};
+type ContainerBannerType = {
+  width:string;
+  top:string;
+  left?:string;
+  right?:string;
+}
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -76,7 +79,10 @@ const Background = styled.div`
 `;
 
 const ContainerBanner = styled.div`
-  max-width: 600px;
+  width: ${({ width }: ContainerBannerType) => width};
+  top:${({ top }: ContainerBannerType) => top};
+  left: ${({ left }: ContainerBannerType) => left? left : ''};
+  right: ${({ right }: ContainerBannerType) => right? right : ''};
   display: flex;
   justify-content: center;
   align-self: center;
@@ -86,6 +92,16 @@ const ContainerBanner = styled.div`
   z-index: 2;
   padding: 20px 0px 20px 0px;
   background-color: #00000067;
+
+  @media (max-width: 700px) {
+    max-width: 330px;
+  }
+
+  @media (max-width: 500px) {
+    top:50%;
+    left:50%;
+    transform: translate(-50%);
+  }
 `;
 const Title = styled.div`
   width: 85%;
@@ -94,16 +110,9 @@ const Title = styled.div`
   font-weight: 700;
   line-height: 52px;
   color: var(--white);
-`;
-const RatingFilm = styled.div`
-  border-radius: 20px;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 52px;
-  color: ${({ color }: Rating) => (color ? color : "var(--creator)")};
 
   @media (max-width: 700px) {
-    font-size: 25px;
+    font-size: 28px;
+    line-height: 30px;
   }
 `;

@@ -23,9 +23,13 @@ justify-content: center;
 position: fixed;
 top: 0;
 left: 0;
-z-index: 5;
+z-index: 6;
 
 transition: background-color 0.3s ease;
 
 background:${({ background }: Props) => background? 'black': 'rgba(0, 0, 0, 0.567);'};
+
+@media (max-width: 700px) {
+    padding: 0;
+  }
 `

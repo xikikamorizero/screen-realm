@@ -19,15 +19,15 @@ const Main = () => {
     <Container>
       <AnimBanner />
       <SlaiderPopular
-        text={"Popular"}
+        text={"Популярные"}
         navigate={routers.general.path.top100film}
       />
       <SlaiderBest
-        text={"Best Film"}
+        text={"Классические"}
         navigate={routers.general.path.top250film}
       />
       <SlaiderRecommendations
-        text={"Recommendations"}
+        text={"Рекомендованные"}
         navigate={routers.general.path.award}
       />
       <BannerContainer>

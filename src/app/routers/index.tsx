@@ -7,7 +7,8 @@ import {
   top250film,
   recommendations,
   search,
-  error
+  error,
+  bookmarks
 } from "../../pages";
 import { routers } from "../../shared/const";
 
@@ -19,6 +20,7 @@ export const public_routers = getRoutes([
   [routers.general.path.award, recommendations],
   [routers.general.path.search, search],
   [routers.general.path.aboutUs, aboutUs],
+  [routers.general.path.bookmarks, bookmarks],
   ['/error', error],
 ]);
 

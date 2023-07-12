@@ -43,6 +43,7 @@ export const MainHeader = ({ ...props }: Props) => {
             icon={logo}
           />
           <Navbar>
+          <TitleNavbar onClick={()=>{navigate('/bookmarks')}}>Закладки</TitleNavbar>
             <TitleNavbar onClick={()=>{navigate('/aboutUs')}}>О нас</TitleNavbar>
             <Icon
               width={"40px"}
@@ -81,6 +82,7 @@ const Icon = styled.div`
   background-repeat: no-repeat;
   background-size: ${({ iconSize }: PropsStyled) => iconSize};
   cursor: pointer;
+
 `;
 
 const Navbar = styled.div`

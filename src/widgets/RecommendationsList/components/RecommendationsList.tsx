@@ -12,7 +12,7 @@ export const RecommendationsList = observer(() => {
   const list = useList();
   const { store } = useContext(Context);
   const SkeletonArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  if (store.loader==1) {
+  if (store.loader == 1) {
     return (
       <ContainerGrid>
         {SkeletonArray.map((i) => (
@@ -23,15 +23,10 @@ export const RecommendationsList = observer(() => {
   }
   return (
     <Container>
+      <Title>Рекомендованные</Title>
       <ContainerGrid>
         {list.map((a: Film, i) => (
-          <GridPoster
-            image={a.posterUrl}
-            creator={a.nameEn}
-            name={a.nameRu}
-            id={a.filmId}
-            key={i}
-          />
+          <GridPoster id={a.filmId} name={a.nameRu} creator={a.rating} image={a.posterUrl} key={i} />
         ))}
       </ContainerGrid>
       {store.loader !== false && store.loader !== 1 ? (
@@ -45,4 +40,12 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap:10px;
+`;
+const Title = styled.div`
+  width: 100%;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  color:var(--secondary)
 `;

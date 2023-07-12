@@ -24,14 +24,11 @@ export const Top250films = observer(() => {
   }
   return (
     <Container>
+      <Title>Классические</Title>
       <ContainerGrid>
         {list.map((a: Film, i) => (
           <GridPoster
-            image={a.posterUrl}
-            creator={a.nameEn}
-            name={a.nameRu}
-            id={a.filmId}
-            key={i}
+          id={a.filmId} name={a.nameRu} creator={a.rating} image={a.posterUrl} key={i}
           />
         ))}
       </ContainerGrid>
@@ -44,4 +41,12 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap:10px;
+`;
+const Title = styled.div`
+  width: 100%;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  color:var(--secondary)
 `;

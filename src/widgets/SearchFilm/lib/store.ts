@@ -2,10 +2,10 @@ import { action, computed, makeAutoObservable } from "mobx";
 import * as types from "../../../shared/api/types";
 
 export class Store {
-  private list: types.Film[] = [];
+  private list: types.MovieFilterResponse[] | null = [];
   private page = 1;
-  private countries: Number[] = [];
-  private genres: Number[] = [];
+  private countries: number | null = null;
+  private genres: number | null = null;
   private order: 'RATING' | 'NUM_VOTE' | 'YEAR' = "RATING";
   private type: 'FILM' | 'TV_SHOW' | 'TV_SERIES' | 'MINI_SERIES' | 'ALL' = "ALL";
   private ratingFrom = 0;
@@ -14,14 +14,28 @@ export class Store {
   private yearTo = 3000;
   private keyword = "";
 
-  private loader = false;
+  private _pageCount: number | null = null;
+
+  private _countriesArrayData:types.CountriesType1[] = [];
+  private _genresArrayData:types.GenreType1[] = [];
+
+  private loader:boolean | number = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  public get pageCount(): number | null {
+    return this._pageCount;
+  }
+
   @action
-  public setList(list: types.Film[]): void {
+  public setPageCount(pageCount: number): void {
+    this._pageCount = pageCount;
+  }
+
+  @action
+  public setList(list: types.MovieFilterResponse[] | null): void {
     this.list = list;
   }
 
@@ -31,12 +45,12 @@ export class Store {
   }
 
   @action
-  public setCountries(countries: Number[]): void {
+  public setCountries(countries: number | null): void {
     this.countries = countries;
   }
 
   @action
-  public setGenres(genres: Number[]): void {
+  public setGenres(genres: number | null): void {
     this.genres = genres;
   }
 
@@ -76,12 +90,12 @@ export class Store {
   }
 
   @action
-  public setLoader(loader: boolean): void {
+  public setLoader(loader: boolean | number): void {
     this.loader = loader;
   }
 
   @computed
-  public get getList(): types.Film[] {
+  public get getList(): types.MovieFilterResponse[] | null {
     return this.list;
   }
 
@@ -91,12 +105,12 @@ export class Store {
   }
 
   @computed
-  public get getCountries(): Number[] {
+  public get getCountries(): number | null {
     return this.countries;
   }
 
   @computed
-  public get getGenres(): Number[] {
+  public get getGenres(): number | null {
     return this.genres;
   }
 
@@ -136,7 +150,25 @@ export class Store {
   }
 
   @computed
-  public get getLoader(): boolean {
+  public get getLoader(): boolean | number {
     return this.loader;
+  }
+
+
+
+  @action
+  public setCountriesArrayData(value: types.CountriesType1[]): void {
+    this._countriesArrayData = value;
+  }
+  @action
+  public setGenresArrayData(value: types.GenreType1[]): void {
+    this._genresArrayData = value;
+  }
+
+  public get countriesArrayData():types.CountriesType1[] {
+    return this._countriesArrayData;
+  }
+  public get genresArrayData():types.GenreType1[] {
+    return this._genresArrayData;
   }
 }

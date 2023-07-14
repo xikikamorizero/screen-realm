@@ -82,7 +82,7 @@ export const Slaider = ({ ...props }: Props) => {
           Смотреть все
         </Button>
       </ContainerTitleButton>
-      <SlaiderContainer ref={containerRef}>
+      <SlaiderContainer>
         {props.loader
           ? SkeletonArray.map((i) => <MainPosterSkeleton key={i} />)
           : props.array?.map((a: types.Film, i) => (

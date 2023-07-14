@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import {
   FilmDescription,
@@ -6,7 +6,7 @@ import {
   Rating,
   TitleFilm,
   SlaiderContainer,
-  MainPoster,
+  MainPoster
 } from "../../../shared/components";
 import error from "../assets/errorImage.jpg";
 import * as types from "../../../shared/api/types";
@@ -25,6 +25,55 @@ type Props = {
 };
 
 export const MainFilm = ({ ...props }: Props) => {
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
+  const [scrollLeft, setScrollLeft] = useState<number>(0);
+  const [startX, setStartX] = useState<number>(0);
+
+  useEffect(() => {
+    const container = containerRef.current;
+
+    const handleMouseDown = (e:any) => {
+      setIsMouseDown(true);
+      setStartX(e.clientX - (container?.offsetLeft || 0));
+      setScrollLeft(container?.scrollLeft || 0);
+    };
+    
+    const handleMouseUp = () => {
+      setIsMouseDown(false);
+    };
+    
+    const handleMouseLeave = () => {
+      setIsMouseDown(false);
+    };
+    
+    const handleMouseMove = (e:any) => {
+      if (!isMouseDown || !container) return;
+      e.preventDefault();
+      const x = e.clientX - (container.offsetLeft || 0);
+      const walk = (x - startX) * 1;
+      container.scrollLeft = scrollLeft - walk;
+    };
+    
+
+    if (container) {
+      container.addEventListener('mousedown', handleMouseDown);
+      container.addEventListener('mouseup', handleMouseUp);
+      container.addEventListener('mouseleave', handleMouseLeave);
+      container.addEventListener('mousemove', handleMouseMove);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('mousedown', handleMouseDown);
+        container.removeEventListener('mouseup', handleMouseUp);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+        container.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
+  }, [containerRef, isMouseDown, startX, scrollLeft]);
+
   return (
     <Container>
       <ContainerHead>
@@ -48,7 +97,7 @@ export const MainFilm = ({ ...props }: Props) => {
 
       <SlaiderContainer>
         {props.screenshot?.map((a, i) => (
-          <Image image={a.imageUrl} key={i} />
+          <Image image={a.imageUrl} key={i}/>
         ))}
       </SlaiderContainer>
 

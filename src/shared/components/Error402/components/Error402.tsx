@@ -20,7 +20,7 @@ const Root = styled.div`
   width: 100vw;
   height: 100vh;
   background: var(--main);
-  z-index: 1;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   justify-content: center;

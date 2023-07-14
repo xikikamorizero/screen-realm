@@ -6,3 +6,4 @@ export * from './Slaider';
 export * from './SearchInput';
 export * from './HeaderBanner';
 export * from './AnimBanner';
+export *from './SlaiderCatalogMenu';

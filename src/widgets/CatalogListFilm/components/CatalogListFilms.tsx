@@ -11,8 +11,7 @@ import { useFilter } from "../lib/hook";
 import { Context as globalContext } from "../../../shared/api/context";
 import { Context } from "../lib/context";
 import { Loader } from "../../../shared/components";
-import search from "../assets/search.png";
-import filter from "../assets/filter.png";
+import filter from "../assets/filterCatalog.png";
 //
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -24,16 +23,17 @@ const MenuProps = {
       maxHeight: ITEM_HEIGHT * 3.5 + ITEM_PADDING_TOP,
       width: 250,
       color: "white",
-      backgroundColor: "#5456605f",
+      backgroundColor: "black"
     },
   },
 };
 
-export const SearchFilm = observer(() => {
+export const CatalogListFilms = observer(() => {
   const { genreArrayData, countriesArrayData } = useFilter();
   const { store } = useContext(Context);
   const global = useContext(globalContext);
   const [filterState, setFilterState] = useState(false);
+  const [filterSearch, setFilterSearch] = useState(false);
 
   global.store.error = 0;
 
@@ -44,21 +44,16 @@ export const SearchFilm = observer(() => {
   const location = useLocation();
   console.log(store.getCountries);
   useEffect(() => {
-    console.log(111);
     // Извлечение параметров из URL и установка значений в состоянии
     const searchParams = new URLSearchParams(location.search);
     const countriesParam = searchParams.get("countries");
     const genresParam = searchParams.get("genres");
-    const keywordParam = searchParams.get("keyword");
     const orderParam:any = searchParams.get("order");
     const typeParam: any = searchParams.get("type");
     const ratingFromParam = searchParams.get("ratingFrom");
     const ratingToParam = searchParams.get("ratingTo");
     const yearFromParam = searchParams.get("yearFrom");
     const yearToParam = searchParams.get("yearTo");
-    if (keywordParam !== null) {
-      store.setKeyword(keywordParam);
-    }
     if (countriesParam !== null) {
       store.setCountries(Number(countriesParam));
     }
@@ -110,7 +105,6 @@ export const SearchFilm = observer(() => {
   };
 
   useEffect(() => {
-    console.log(222)
     const searchParams = new URLSearchParams(location.search);
     if (store.getCountries !== null) {
       searchParams.set("countries", store.getCountries.toString());
@@ -121,11 +115,6 @@ export const SearchFilm = observer(() => {
       searchParams.set("genres", store.getGenres.toString());
     } else {
       searchParams.delete("genres");
-    }
-    if (store.getKeyword !== "") {
-      searchParams.set("keyword", store.getKeyword);
-    } else {
-      searchParams.delete("keyword");
     }
     if (store.getOrder !=="RATING"){
       searchParams.set("order", store.getOrder);
@@ -164,7 +153,6 @@ export const SearchFilm = observer(() => {
       store.setPage(1);
       global.store.list.getFilmsFilter
         .request({
-          keyword: store.getKeyword,
           page: store.getPage,
           countries: store.getCountries,
           genres: store.getGenres,
@@ -185,39 +173,19 @@ export const SearchFilm = observer(() => {
         });
     }, 300);
 
-    if (store.getKeyword) {
-      debouncedFetchMovies();
-    } else {
-      store.setList(null);
-    }
+    debouncedFetchMovies();
+
 
     return () => {
       debouncedFetchMovies.cancel();
     };
   }, [
-    store.getKeyword,
-    store.getGenres,
-    store.getCountries,
-    store.getOrder,
-    store.getType,
-    store.getRatingFrom,
-    store.getRatingTo,
-    store.getYearFrom,
-    store.getYearTo,
+    filterSearch
   ]);
 
   return (
     <Container>
       <ContainerSearch>
-        <Icon icon={search} />
-        <Input
-          type={"text"}
-          value={store.getKeyword}
-          placeholder={"Поиск..."}
-          onChange={(e) => {
-            store.setKeyword(String(e.target.value));
-          }}
-        />
         <Icon
           activeColor={true}
           style={{ cursor: "pointer" }}
@@ -404,10 +372,10 @@ export const SearchFilm = observer(() => {
                 </FormControl>
               </TypeContainer>
             </SelectContainer>
+            <Button onClick={()=>{setFilterSearch(!filterSearch)}}>Поиск</Button>
           </ContainerFilterPanel>
         </Filter>
       ) : null}
-      {store.getKeyword !== "" ? <Title>Результат поиска:</Title> : null}
       {store.getLoader === true ? (
         <Loader loaderSearch={true} />
       ) : store.getList?.length == 0 ? (
@@ -448,8 +416,10 @@ type Props = {
 const ContainerSearch = styled.div`
   width: 100%;
   display: flex;
+  justify-content: end;
+
+  border-bottom: 1px solid var(--white);
   gap: 20px;
-  border-bottom: 1px solid silver;
   padding-bottom: 10px;
 `;
 const Icon = styled.div`
@@ -603,4 +573,33 @@ const NoResult = styled.div`
   font-weight: 700;
   line-height: 52px;
   color: var(--secondary);
+`;
+
+const Button = styled.div`
+
+padding: 10px 20px 10px 20px;
+color:var(--white);
+text-align: center;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: normal; 
+
+background-color: var(--secondary);
+
+-webkit-box-shadow: 0px 5px 10px 2px rgba(45, 43, 43, 0.2);
+-moz-box-shadow: 0px 5px 10px 2px rgba(45, 43, 43, 0.2);
+box-shadow: 0px 5px 10px 2px rgba(45, 43, 43, 0.2);
+
+-moz-user-select: none;
+-khtml-user-select: none;
+user-select: none;  
+
+cursor: pointer;
+
+:active{
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+-moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+}
 `;

@@ -8,7 +8,8 @@ import {
   recommendations,
   search,
   error,
-  bookmarks
+  bookmarks,
+  catalog
 } from "../../pages";
 import { routers } from "../../shared/const";
 
@@ -22,6 +23,7 @@ export const public_routers = getRoutes([
   [routers.general.path.aboutUs, aboutUs],
   [routers.general.path.bookmarks, bookmarks],
   ['/error', error],
+  [routers.general.path.catalog, catalog]
 ]);
 
 export const protected_routers = getRoutes([["*", [<div>error</div>]]]);

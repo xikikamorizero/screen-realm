@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { TPages } from "gears-react";
 import styled from "styled-components";
 import { Context } from "../../../../shared/api";
 
 const AboutUs = () => {
   const { store } = useContext(Context);
-  useEffect(() => {
-    store.error = 0;
-  }, []);
+  store.error = 0;
+
   return (
     <Container>
       <TitleMain>Позвольте немного рассказать о нас:</TitleMain>

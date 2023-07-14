@@ -1,0 +1,1 @@
+export {CatalogListFilms} from './components/CatalogListFilms';

@@ -131,7 +131,7 @@ const BookmarksButton = styled.div`
   background-size: 30px;
   background-color: var(--secondary);
   border-radius: 10px;
-  z-index: 5;
+  z-index: 4;
   cursor: pointer;
 
   @media (max-width: 700px) {

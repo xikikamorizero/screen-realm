@@ -17,3 +17,4 @@ export * from './Error402';
 export * from './GridPosterSkeleton';
 export * from './MainPosterSkeleton';
 export * from './AnimBanner';
+export * from './ItemCatalogMenu';

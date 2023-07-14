@@ -7,3 +7,4 @@ export * from './components/SearchFilm';
 export * from './components/AboutUs';
 export * from './components/Error402';
 export * from './components/Bookmarks';
+export * from './components/Сatalog';

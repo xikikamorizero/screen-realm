@@ -4,10 +4,13 @@ import { observer } from "mobx-react-lite";
 import styled from "styled-components";
 import { ContainerGrid, GridPoster } from "../../../../shared/components";
 import { Context } from "../../../../shared/api";
+import { Context as GlobalContext } from "../../../../shared/api";
 import { Bookmarks } from "../../../../shared/api/types";
 
 const BookmarksPage = observer(() => {
   const { store } = useContext(Context);
+  const global = useContext(GlobalContext)
+  global.store.error = 0;
   return (
     <Container>
         <Title>Мои закладки:</Title>

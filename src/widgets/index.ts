@@ -9,3 +9,4 @@ export * from './SlaiderPopularFilm';
 export * from './SlaiderBestFilm';
 export * from './SlaiderRecommendationsFilm';
 export * from './SearchFilm';
+export * from './CatalogListFilm';

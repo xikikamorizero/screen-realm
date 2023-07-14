@@ -7,4 +7,5 @@ export const path = {
     search: '/search',
     aboutUs: '/aboutUs',
     bookmarks: '/bookmarks',
+    catalog: '/catalog'
 };

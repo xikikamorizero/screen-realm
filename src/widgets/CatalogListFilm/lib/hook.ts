@@ -27,12 +27,11 @@ export const useFilter = () => {
   }, []);
 
   useEffect(() => {
-    if (fetching && store.getKeyword !== "" && store.getList !== null) {
+    if (fetching && store.getList !== null) {
       if (store.pageCount === null || store.getPage <= store.pageCount) {
          store.setLoader(store.getPage);
          global.store.list.getFilmsFilter
           .request({
-            keyword: store.getKeyword,
             page: store.getPage+1,
             countries: store.getCountries,
             genres: store.getGenres,

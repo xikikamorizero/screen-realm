@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import error from "../assets/errorImage.jpg";
 
 type Props = {
   width?: string;

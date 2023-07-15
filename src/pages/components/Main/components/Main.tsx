@@ -14,7 +14,7 @@ import icon2 from '../assets/icon2.png';
 import icon3 from '../assets/icon3.png';
 
 
-const Main = () => {
+export const Main = () => {
   return (
     <Container>
       <AnimBanner />

@@ -1,15 +1,28 @@
 import React, { useContext } from "react";
 import "./styles/index.css";
 import "./styles/colors.css";
-import { CheckAccountAccess } from "../processes";
 import { observer } from "mobx-react-lite";
-
+import { Route, Routes } from "react-router-dom";
 import { protected_routers, public_routers } from "./routers";
 import { Container } from "../shared/components";
 import { MainHeader } from "../entities";
 import styled from "styled-components";
 import { MainFooter } from "../entities";
 import { Context } from "../shared/api";
+import {
+  aboutUs,
+  film,
+  main,
+  Main,
+  top100film,
+  top250film,
+  recommendations,
+  search,
+  error,
+  bookmarks,
+  catalog
+} from "../pages";
+import {FilmInfoBlock} from '../widgets';
 
 const App = observer(() => {
   const { store } = useContext(Context);
@@ -22,10 +35,10 @@ const App = observer(() => {
           store.error == 402 ? { maxHeight: "93vh", overflow: "hidden" } : {}
         }
       >
-        <CheckAccountAccess
-          protectedRoutes={protected_routers}
-          publicRoutes={public_routers}
-        />
+          <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/films/*" element={<FilmInfoBlock />} />
+        </Routes>
       </Center>
       <MainFooter />
     </AppContainer>

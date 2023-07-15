@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import "./styles/index.css";
 import "./styles/colors.css";
 import { CheckAccountAccess } from "../processes";
-import {observer} from 'mobx-react-lite';
-import { BrowserRouter } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+
 import { protected_routers, public_routers } from "./routers";
 import { Container } from "../shared/components";
 import { MainHeader } from "../entities";
@@ -13,23 +13,21 @@ import { Context } from "../shared/api";
 
 const App = observer(() => {
   const { store } = useContext(Context);
-  console.log(store.error)
+  console.log(store.error);
   return (
     <AppContainer>
-      <BrowserRouter>
-        <MainHeader />
-        <Center
-          style={
-            store.error == 402 ? { maxHeight: "93vh", overflow: "hidden" } : {}
-          }
-        >
-          <CheckAccountAccess
-            protectedRoutes={protected_routers}
-            publicRoutes={public_routers}
-          />
-        </Center>
-        <MainFooter />
-      </BrowserRouter>
+      <MainHeader />
+      <Center
+        style={
+          store.error == 402 ? { maxHeight: "93vh", overflow: "hidden" } : {}
+        }
+      >
+        <CheckAccountAccess
+          protectedRoutes={protected_routers}
+          publicRoutes={public_routers}
+        />
+      </Center>
+      <MainFooter />
     </AppContainer>
   );
 });

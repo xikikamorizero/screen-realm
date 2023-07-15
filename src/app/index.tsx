@@ -3,6 +3,7 @@ import "./styles/index.css";
 import "./styles/colors.css";
 import { CheckAccountAccess } from "../processes";
 import { observer } from "mobx-react-lite";
+
 import { protected_routers, public_routers } from "./routers";
 import { Container } from "../shared/components";
 import { MainHeader } from "../entities";

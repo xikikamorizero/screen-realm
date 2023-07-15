@@ -42,4 +42,4 @@ const Center = styled(Container)`
   min-height: 93vh;
   padding: 100px 0px 90px 0px;
 `;
-// export default App;
+export default App;

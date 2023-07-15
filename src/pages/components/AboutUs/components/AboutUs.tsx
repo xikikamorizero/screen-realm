@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { TPages } from "gears-react";
 import styled from "styled-components";
 import { Context } from "../../../../shared/api";
 
 const AboutUs = () => {
   const { store } = useContext(Context);
-  store.error = 0;
+
+  useEffect(()=>{
+    store.error = 0;
+  }, [])
+  
 
   return (
     <Container>

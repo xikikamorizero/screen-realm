@@ -71,7 +71,7 @@ export const MainHeader = () => {
               height={"40px"}
               iconSize={"40px"}
               icon={search}
-              type={true}
+              type={'true'}
               onClick={() => {
                 navigate("/search");
               }}
@@ -80,12 +80,11 @@ export const MainHeader = () => {
               width={"40px"}
               height={"40px"}
               iconSize={"40px"}
-              type={false}
               icon={burgerMenu}
               onClick={()=>{setBurger(true)}}
             />
           </SecondaryBlock>
-          <Burger burger={burger} click={setBurger} />
+          <Burger burger={burger} click={setBurger} /> 
         </Header>
       }
     />
@@ -97,7 +96,7 @@ type PropsStyled = {
   width: string;
   height: string;
   iconSize: string;
-  type?:boolean;
+  type?:string;
 };
 
 const Header = styled(Container)`
@@ -106,7 +105,7 @@ const Header = styled(Container)`
   justify-content: space-between;
 `;
 const Icon = styled.div`
- display: ${({ type }: PropsStyled) => type? 'block':'none'};
+  display: ${({ type }: PropsStyled) => type? 'block':'none'};
   min-width: ${({ width }: PropsStyled) => width};
   min-height: ${({ height }: PropsStyled) => height};
   background: url(${({ icon }: PropsStyled) => icon});

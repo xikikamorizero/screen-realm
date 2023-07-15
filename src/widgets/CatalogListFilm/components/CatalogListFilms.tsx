@@ -35,15 +35,13 @@ export const CatalogListFilms = observer(() => {
   const [filterState, setFilterState] = useState(false);
   const [filterSearch, setFilterSearch] = useState(false);
 
-  global.store.error = 0;
 
-  // console.log(store.getList)
   //test
-
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(store.getCountries);
+  
   useEffect(() => {
+
     // Извлечение параметров из URL и установка значений в состоянии
     const searchParams = new URLSearchParams(location.search);
     const countriesParam = searchParams.get("countries");
@@ -164,8 +162,9 @@ export const CatalogListFilms = observer(() => {
           yearTo: store.getYearTo,
         })
         .then((response) => {
-          if (response.status !== 200) {
+          if (response.status === undefined || response.status !== 200) {
             store.setLoader(false);
+            global.store.error = response.status
             return;
           }
           store.setList([...response.data.items]);

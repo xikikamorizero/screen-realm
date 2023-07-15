@@ -18,6 +18,7 @@ export const FilmInfoBlock = observer(() => {
   }
   return (
     <MainFilm
+      id={result.film?.kinopoiskId}
       image={result.film?.posterUrl}
       name={result.film?.nameRu}
       description={result.film?.description}

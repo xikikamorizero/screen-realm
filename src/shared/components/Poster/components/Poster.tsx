@@ -7,13 +7,17 @@ type Props = {
   image?: string;
   width?: string;
   height?: string;
+  children?:React.ReactNode;
 };
 
 export const Poster = ({ ...props }: Props) => {
-  return <ImagePoster image={props.image} width={props.width} height={props.height} />;
+  return <ImagePoster image={props.image} width={props.width} height={props.height}>
+{props.children}
+  </ImagePoster>;
 };
 
 const ImagePoster = styled.div`
+  position: relative;
   width: ${({ width }: Props) => (width ? width : "438px")};
   height: ${({ height }: Props) => (height ? height : "438px")};
   min-width: 150px;

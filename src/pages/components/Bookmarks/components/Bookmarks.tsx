@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { TPages } from "gears-react";
 import { observer } from "mobx-react-lite";
 import styled from "styled-components";
@@ -10,7 +10,11 @@ import { Bookmarks } from "../../../../shared/api/types";
 const BookmarksPage = observer(() => {
   const { store } = useContext(Context);
   const global = useContext(GlobalContext)
-  global.store.error = 0;
+
+  useEffect(()=>{
+    global.store.error = 0;
+  },[])
+  
   return (
     <Container>
         <Title>Мои закладки:</Title>

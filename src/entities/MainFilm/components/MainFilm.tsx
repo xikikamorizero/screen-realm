@@ -1,5 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useContext} from "react";
 import styled from "styled-components";
+import { observer } from "mobx-react-lite";
+import { Context } from "../../../shared/api";
 import {
   FilmDescription,
   Poster,
@@ -8,10 +10,13 @@ import {
   SlaiderContainer,
   MainPoster
 } from "../../../shared/components";
-import error from "../assets/errorImage.jpg";
 import * as types from "../../../shared/api/types";
+import error from "../assets/errorImage.jpg";
+import bookmarksOn from "../assets/bookmarksOn.png";
+import bookmarksOff from "../assets/bookmarksOff.png";
 
 type Props = {
+  id?:number;
   image?: string;
   name?: string;
   description?: string;
@@ -24,60 +29,33 @@ type Props = {
   similars?: types.Film[];
 };
 
-export const MainFilm = ({ ...props }: Props) => {
+export const MainFilm = observer(({ ...props }: Props) => {
+  const { store } = useContext(Context);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
-  const [scrollLeft, setScrollLeft] = useState<number>(0);
-  const [startX, setStartX] = useState<number>(0);
-
-  useEffect(() => {
-    const container = containerRef.current;
-
-    const handleMouseDown = (e:any) => {
-      setIsMouseDown(true);
-      setStartX(e.clientX - (container?.offsetLeft || 0));
-      setScrollLeft(container?.scrollLeft || 0);
-    };
-    
-    const handleMouseUp = () => {
-      setIsMouseDown(false);
-    };
-    
-    const handleMouseLeave = () => {
-      setIsMouseDown(false);
-    };
-    
-    const handleMouseMove = (e:any) => {
-      if (!isMouseDown || !container) return;
-      e.preventDefault();
-      const x = e.clientX - (container.offsetLeft || 0);
-      const walk = (x - startX) * 1;
-      container.scrollLeft = scrollLeft - walk;
-    };
-    
-
-    if (container) {
-      container.addEventListener('mousedown', handleMouseDown);
-      container.addEventListener('mouseup', handleMouseUp);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      container.addEventListener('mousemove', handleMouseMove);
-    }
-
-    return () => {
-      if (container) {
-        container.removeEventListener('mousedown', handleMouseDown);
-        container.removeEventListener('mouseup', handleMouseUp);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-        container.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, [containerRef, isMouseDown, startX, scrollLeft]);
+  const filmObjectData: types.Bookmarks = {
+    filmId: props.id,
+    rating: props.rating? String(props.rating) : '',
+    name: props.name? props.name : '',
+    image: props.image? props.image : '',
+  };
 
   return (
     <Container>
       <ContainerHead>
-        <Poster image={props.image} height={'33vw'} width={'30vw'} />
+        <Poster image={props.image} height={'33vw'} width={'30vw'}>
+        <BookmarksButton
+          image={
+            store.bookmarks.some(
+              (item) => item.filmId === filmObjectData.filmId
+            )
+              ? bookmarksOn
+              : bookmarksOff
+          }
+          onClick={() => {
+              store.toggleBookmark(filmObjectData);
+          }}
+        />
+        </Poster>
         <InfoBlock>
           <TitleFilm name={props.name} ageRating={props.ageRating} />
           <SecondaryInfoBlock>
@@ -118,7 +96,7 @@ export const MainFilm = ({ ...props }: Props) => {
       ) : null}
     </Container>
   );
-};
+});
 
 const Container = styled.div`
   width: 100%;
@@ -127,6 +105,7 @@ const Container = styled.div`
   gap: 40px;
 `;
 const ContainerHead = styled.div`
+position: relative;
   width: 100%;
   display: flex;
   gap: 20px;
@@ -174,4 +153,26 @@ const Image = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+`;
+const BookmarksButton = styled.div`
+  top: 2%;
+  right: 3%;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: url(${({ image }: Props) => (image ? image : "")});
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-color: var(--secondary);
+  border-radius: 10px;
+  z-index: 5;
+  cursor: pointer;
+
+  @media (max-width: 700px) {
+    width: 25px;
+    height: 25px;
+    background-size: 20px;
+    border-radius: 10px;
+  }
 `;

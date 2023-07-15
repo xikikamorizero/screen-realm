@@ -81,7 +81,7 @@ const Container = styled.div`
   top: 0;
   height: 100vh;
   width: 100%;
-  z-index: 0;
+  z-index: 11;
   display: flex;
   background-color: rgba(0, 0, 0, 0.85);
   justify-content: end;

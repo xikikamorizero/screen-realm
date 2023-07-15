@@ -15,7 +15,7 @@ export const useMovie = () => {
       })
       .then((r) => {
         store.setMovie(r.data);
-      });
+      })
     global.store.movie.getImages
       .request(
         {
@@ -40,7 +40,6 @@ export const useMovie = () => {
       .then((r) => {
         const budget = r.data.items.filter((obj:{type:string}) => obj.type === 'BUDGET')[0]
         const word = r.data.items.filter((obj:{type:string}) => obj.type === 'WORLD')[0]
-        console.log(budget)
         store.setBoxOffice({
           budget: budget===undefined? '?' : budget.amount + budget.symbol,
           worldwideBoxOffice: word===undefined? '?' : word.amount + word.symbol,

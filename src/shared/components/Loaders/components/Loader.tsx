@@ -21,7 +21,7 @@ const Root = styled.div`
   width: 100%;
   height: ${({loaderSearch}: Props) => loaderSearch? '150px':'100vh'};
   background: var(--main);
-  z-index: 99999999999;
+  z-index: ${({loaderSearch}: Props) => loaderSearch? 0 : 9999999999999};
   display: flex;
   justify-content: center;
   align-items: center;

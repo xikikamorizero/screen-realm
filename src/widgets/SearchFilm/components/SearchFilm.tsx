@@ -1,5 +1,6 @@
-import React, { useState, useContext, useEffect, ChangeEvent } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { useLocation, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { Select, MenuItem, FormControl } from "@mui/material";
 import { observer } from "mobx-react-lite";
@@ -13,8 +14,6 @@ import { Context } from "../lib/context";
 import { Loader } from "../../../shared/components";
 import search from "../assets/search.png";
 import filter from "../assets/filter.png";
-//
-import { useLocation, useNavigate } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,16 +34,12 @@ export const SearchFilm = observer(() => {
   const global = useContext(globalContext);
   const [filterState, setFilterState] = useState(false);
 
-  global.store.error = 0;
-
-  // console.log(store.getList)
   //test
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(store.getCountries);
+
   useEffect(() => {
-    console.log(111);
     // Извлечение параметров из URL и установка значений в состоянии
     const searchParams = new URLSearchParams(location.search);
     const countriesParam = searchParams.get("countries");
@@ -110,7 +105,6 @@ export const SearchFilm = observer(() => {
   };
 
   useEffect(() => {
-    console.log(222)
     const searchParams = new URLSearchParams(location.search);
     if (store.getCountries !== null) {
       searchParams.set("countries", store.getCountries.toString());
@@ -176,8 +170,9 @@ export const SearchFilm = observer(() => {
           yearTo: store.getYearTo,
         })
         .then((response) => {
-          if (response.status !== 200) {
+          if (response.status === undefined || response.status !== 200) {
             store.setLoader(false);
+            global.store.error = response.status
             return;
           }
           store.setList([...response.data.items]);

@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
-import "./styles/index.css";
-import "./styles/colors.css";
-import { CheckAccountAccess } from "../processes";
+import "./app/styles/index.css";
+import "./app/styles/colors.css";
+import { CheckAccountAccess } from "./processes";
 import { observer } from "mobx-react-lite";
-import { protected_routers, public_routers } from "./routers";
-import { Container } from "../shared/components";
-import { MainHeader } from "../entities";
+import { protected_routers, public_routers } from "./app/routers";
+import { Container } from "./shared/components";
+import { MainHeader } from "./entities";
 import styled from "styled-components";
-import { MainFooter } from "../entities";
-import { Context } from "../shared/api";
+import { MainFooter } from "./entities";
+import { Context } from "./shared/api";
 
 const App = observer(() => {
   const { store } = useContext(Context);
@@ -41,4 +41,4 @@ const Center = styled(Container)`
   min-height: 93vh;
   padding: 100px 0px 90px 0px;
 `;
-// export default App;
+export default App;

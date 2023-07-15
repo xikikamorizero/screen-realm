@@ -3,7 +3,7 @@ import { TPages } from "gears-react";
 import styled from "styled-components";
 import { SearchFilm } from "../../../../widgets";
 
-const SearchFilms = () => {
+export const SearchFilms = () => {
   return (
     <Container>
       <SearchFilm />

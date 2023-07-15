@@ -10,17 +10,14 @@ import styled from "styled-components";
 import { MainFooter } from "../entities";
 import { Context } from "../shared/api";
 import {
-  aboutUs,
-  film,
-  main,
   Main,
-  top100film,
-  top250film,
-  recommendations,
-  search,
-  error,
-  bookmarks,
-  catalog
+  Top100FilmList,
+  Top250Films,
+  Recommendations,
+  SearchFilms,
+  AboutUs,
+  BookmarksPage,
+  Catalog,
 } from "../pages";
 import {FilmInfoBlock} from '../widgets';
 
@@ -36,8 +33,15 @@ const App = observer(() => {
         }
       >
           <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/films/*" element={<FilmInfoBlock />} />
+          <Route path='/' element={<Main />} />
+          <Route path='/films/*' element={<FilmInfoBlock />} />
+          <Route path='/popular_films' element={<Top100FilmList />} />
+          <Route path='/best_films' element={<Top250Films />} />
+          <Route path='/recommendations' element={<Recommendations />} />
+          <Route path='/search' element={<SearchFilms />} />
+          <Route path='/aboutUs' element={<AboutUs />} />
+          <Route path='/bookmarks' element={<BookmarksPage />} />
+          <Route path='/catalog' element={<Catalog />} />
         </Routes>
       </Center>
       <MainFooter />

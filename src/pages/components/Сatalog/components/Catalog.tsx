@@ -5,7 +5,7 @@ import { SlaiderCatalogMenu } from "../../../../entities";
 import styled from "styled-components";
 import { CatalogListFilms } from "../../../../widgets";
 
-const Catalog = () => {
+export const Catalog = () => {
   return (
     <Container>
       <SlaiderCatalogMenu />

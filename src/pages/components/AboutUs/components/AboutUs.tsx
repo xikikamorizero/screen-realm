@@ -3,7 +3,7 @@ import { TPages } from "gears-react";
 import styled from "styled-components";
 import { Context } from "../../../../shared/api";
 
-const AboutUs = () => {
+export const AboutUs = () => {
   const { store } = useContext(Context);
 
   useEffect(()=>{

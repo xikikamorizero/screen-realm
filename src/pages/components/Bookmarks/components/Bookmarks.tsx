@@ -7,7 +7,7 @@ import { Context } from "../../../../shared/api";
 import { Context as GlobalContext } from "../../../../shared/api";
 import { Bookmarks } from "../../../../shared/api/types";
 
-const BookmarksPage = observer(() => {
+export const BookmarksPage = observer(() => {
   const { store } = useContext(Context);
   const global = useContext(GlobalContext)
 

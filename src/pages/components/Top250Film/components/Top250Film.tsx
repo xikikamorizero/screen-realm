@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TPages } from "gears-react";
 import { Top250films } from "../../../../widgets";
 
-const Top250Films = () => {
+export const Top250Films = () => {
   return (
     <Container>
       <Top250films />

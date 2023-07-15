@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { TPages } from "gears-react";
 import { RecommendationsList } from "../../../../widgets";
 
-const Recommendations = () => {
+export const Recommendations = () => {
   return (
     <Container>
       <RecommendationsList />

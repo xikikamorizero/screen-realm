@@ -11,7 +11,7 @@ export const Banner1 = () => {
       </ContainerBanner>
       <Background
         background={
-          "https://newcdn.igromania.ru/mnt/news/d/5/0/d/8/d/125395/12b0b736a5c4b4d1_original.webp"
+          "https://images.unsplash.com/photo-1606612658492-f479525ae94c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1173&q=80"
         }
       />
     </Container>
@@ -28,7 +28,7 @@ export const Banner2 = () => {
       </ContainerBanner>
       <Background
         background={
-          "https://www.soyuz.ru/public/uploads/files/2/7481175/20220408150437fd3d274f29.jpg"
+          "https://images.unsplash.com/photo-1559631309-9ed661c193ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fGZpbG1zfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60"
         }
       />
     </Container>
@@ -45,7 +45,7 @@ export const Banner3 = () => {
       </ContainerBanner>
       <Background
         background={
-          "https://riviera-mall.uz/wp-content/uploads/riviera-mall__cinema-bg.jpg"
+          "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
         }
       />
     </Container>

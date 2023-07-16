@@ -34,9 +34,9 @@ export const MainHeader = () => {
         <Header>
           <Icon
             style={{display:'block'}}
-            width={"170px"}
-            height={"70px"}
-            iconSize={"170px"}
+            width={"160px"}
+            height={"65px"}
+            iconSize={"160px"}
             onClick={() => {
               navigate("/");
             }}

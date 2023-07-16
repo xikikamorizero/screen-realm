@@ -58,6 +58,7 @@ const TextContainer = styled.div`
   line-height: 14px;
   color: var(--white);
   @media (max-width: 700px) {
-    font-size: 10px;
+    line-height: 10px;
+    font-size: 8px;
   }
 `;

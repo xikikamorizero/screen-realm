@@ -73,6 +73,9 @@ const Image = styled.div`
   @media (max-width: 700px) {
     height: 25vw;
   }
+  @media (max-width: 500px) {
+    height: 30vw;
+  }
 `;
 const Creator = styled.div`
   width: 100%;
@@ -105,6 +108,9 @@ const Block = styled.div`
 
   @media (max-width: 700px) {
     min-width: calc(25% - 10px);
+  }
+  @media (max-width: 500px) {
+    min-width: calc(100% / 3 - 10px);
   }
 `;
 const Container = styled.div`

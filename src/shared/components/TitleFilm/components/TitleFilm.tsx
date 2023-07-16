@@ -21,6 +21,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   gap: 15px;
+  align-items: center;
   justify-content: space-between;
 
   @media (max-width: 700px) {
@@ -41,9 +42,6 @@ const Name = styled.div`
 `;
 
 const AgeRating = styled.div`
-  margin-top: 10px;
-  min-width: 30px;
-  max-height: 30px;
   color: var(--white);
   padding: 5px 10px 5px 10px;
 
@@ -56,15 +54,13 @@ const AgeRating = styled.div`
   justify-content: center;
   align-items: center;
 
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--secondary);
 
   @media (max-width: 700px) {
-    min-width: 33px;
-    max-height: 20px;
+    min-width: 40px;
     padding: 2px 3px 2px 3px;
     font-size: 8px;
     border-radius: 5px;
-    margin-top: 20px;
   }
 `;

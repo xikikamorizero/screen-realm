@@ -41,7 +41,7 @@ export const CatalogListFilms = observer(() => {
   const location = useLocation();
   
   useEffect(() => {
-
+    global.store.error = 0;
     // Извлечение параметров из URL и установка значений в состоянии
     const searchParams = new URLSearchParams(location.search);
     const countriesParam = searchParams.get("countries");

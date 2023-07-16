@@ -43,6 +43,11 @@ export const useFilter = () => {
             yearTo: store.getYearTo,
           })
           .then((response) => {
+            if(response.status !== 200){
+              store.setLoader(false);
+              global.store.error = response.status;
+              return
+            }
             if(store.getList !== null){
               store.setList([...store.getList, ...response.data.items]);
             }

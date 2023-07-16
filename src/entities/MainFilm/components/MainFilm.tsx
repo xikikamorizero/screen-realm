@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../../shared/api";
@@ -8,7 +8,8 @@ import {
   Rating,
   TitleFilm,
   SlaiderContainer,
-  MainPoster
+  MainPoster,
+  Screenshot
 } from "../../../shared/components";
 import * as types from "../../../shared/api/types";
 import error from "../assets/errorImage.jpg";
@@ -31,6 +32,7 @@ type Props = {
 
 export const MainFilm = observer(({ ...props }: Props) => {
   const { store } = useContext(Context);
+  const [screenshot, setScreen] = useState<false|string>(false)
 
   const filmObjectData: types.Bookmarks = {
     filmId: props.id,
@@ -75,12 +77,14 @@ export const MainFilm = observer(({ ...props }: Props) => {
 
       <SlaiderContainer>
         {props.screenshot?.map((a, i) => (
-          <Image image={a.imageUrl} key={i}/>
+          <Image image={a.imageUrl} onClick={()=>{setScreen(a.imageUrl)}} key={i}/>
         ))}
       </SlaiderContainer>
 
+      {screenshot? <Screenshot image={screenshot} setState={setScreen} /> : null}
+
       {props.similars?.length !== 0 && props.similars ? (
-        <Container>
+        <Container style={{gap:'20px'}}>
           <Title style={{ fontSize: "25px" }}>Похожие фильмы</Title>
           <SlaiderContainer>
             {props.similars.map((a, i) => (
@@ -102,7 +106,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 50px;
 `;
 const ContainerHead = styled.div`
 position: relative;
@@ -129,6 +133,7 @@ const SecondaryInfoBlock = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap:5px;
 `;
 const Info = styled.div`
   display: flex;
@@ -153,6 +158,7 @@ const Image = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  cursor: pointer;
 `;
 const BookmarksButton = styled.div`
   top: 2%;

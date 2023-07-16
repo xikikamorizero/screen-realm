@@ -100,7 +100,7 @@ const Name = styled.div`
   text-overflow: ellipsis;
 
   @media (max-width: 500px) {
-    font-size: 18px;
+    font-size: 14px;
   }
 `;
 

@@ -47,21 +47,24 @@ export const Burger = ({ ...props }: PropsType) => {
 
         <TitleNavbar
           onClick={() => {
-            navigate("/catalog");
+            navigate("/catalog")
+            props.click(false)
           }}
         >
           Каталог
         </TitleNavbar>
         <TitleNavbar
           onClick={() => {
-            navigate("/bookmarks");
+            navigate("/bookmarks")
+            props.click(false)
           }}
         >
           Закладки
         </TitleNavbar>
         <TitleNavbar
           onClick={() => {
-            navigate("/aboutUs");
+            navigate("/aboutUs")
+            props.click(false)
           }}
         >
           О нас

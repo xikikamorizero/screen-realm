@@ -18,3 +18,4 @@ export * from './GridPosterSkeleton';
 export * from './MainPosterSkeleton';
 export * from './AnimBanner';
 export * from './ItemCatalogMenu';
+export * from './ScreenshotBanner';

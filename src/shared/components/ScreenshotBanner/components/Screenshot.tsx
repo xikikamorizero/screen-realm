@@ -24,6 +24,10 @@ const Image = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  @media (max-width: 700px){
+    height: 50vw;
+  }
 `;
 const Container = styled.div`
   position: fixed;

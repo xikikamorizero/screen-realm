@@ -144,7 +144,14 @@ const TitleNavbar = styled.div`
   font-weight: 500;
   line-height: normal;
 
+  :hover{
+    color:var(--secondary);
+  }
+
   cursor: pointer;
+  -moz-user-select: none;
+-khtml-user-select: none;
+user-select: none;   
 `;
 
 const SecondaryBlock = styled.div`

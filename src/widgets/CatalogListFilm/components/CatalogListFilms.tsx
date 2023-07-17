@@ -195,8 +195,7 @@ export const CatalogListFilms = observer(() => {
         />
       </ContainerSearch>
 
-      {filterState ? (
-        <Filter>
+        <Filter show={filterState}>
           <ContainerFilterPanel>
             <ContainerInput>
               <Title>Год</Title>
@@ -374,7 +373,7 @@ export const CatalogListFilms = observer(() => {
             <Button onClick={()=>{setFilterSearch(!filterSearch)}}>Поиск</Button>
           </ContainerFilterPanel>
         </Filter>
-      ) : null}
+  
       {store.getLoader === true ? (
         <Loader loaderSearch={true} />
       ) : store.getList?.length == 0 ? (
@@ -442,31 +441,22 @@ const Icon = styled.div`
     background-size: 33px;
   }
 `;
+type FilterStyle = {
+  show: boolean;
+};
 const Filter = styled.div`
+  max-height: ${({ show }: FilterStyle) => (show ? '1000px' : '0px')};
+  overflow: hidden;
   width: 80%;
   display: flex;
   gap: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: max-height 0.4s linear;  
 
   @media (max-width: 444px) {
     width: 96%;
-  }
-
-  animation-name: loader;
-  animation-duration: 1s;
-  transition: all 4s;
-  animation-iteration-count: 1;
-  animation-timing-function: linear;
-
-  @keyframes loader {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 `;
 const InputFilter = styled.input`

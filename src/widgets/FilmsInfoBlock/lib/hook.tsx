@@ -14,6 +14,9 @@ export const useMovie = () => {
         id: store.movieId,
       })
       .then((r) => {
+        if(r.status !== 200){
+         return
+        }
         store.setMovie(r.data);
       })
     global.store.movie.getImages
@@ -24,6 +27,9 @@ export const useMovie = () => {
         { type: "SCREENSHOT", page: 1 }
       )
       .then((r) => {
+        if(r.status !== 200){
+          return
+         }
         store.setScreenshot(r.data.items);
       });
     global.store.movie.getSimilars
@@ -31,6 +37,9 @@ export const useMovie = () => {
         id: store.movieId,
       })
       .then((r) => {
+        if(r.status !== 200){
+          return
+         }
         store.setSimilar(r.data.items);
       });
     global.store.movie.getBoxOffice
@@ -38,6 +47,10 @@ export const useMovie = () => {
         id: store.movieId,
       })
       .then((r) => {
+        if(r.status !== 200){
+          store.setLoader(false);
+          return
+         }
         const budget = r.data.items.filter((obj:{type:string}) => obj.type === 'BUDGET')[0]
         const word = r.data.items.filter((obj:{type:string}) => obj.type === 'WORLD')[0]
         store.setBoxOffice({

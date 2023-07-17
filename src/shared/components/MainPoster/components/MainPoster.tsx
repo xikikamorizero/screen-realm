@@ -69,6 +69,11 @@ const Image = styled.div`
   :hover {
     opacity: 0.7;
   }
+  :active{
+    opacity: 0.5;
+  }
+
+  transition: all 0.3s;
 
   @media (max-width: 700px) {
     height: 25vw;
@@ -104,13 +109,13 @@ const Name = styled.div`
 `;
 const Block = styled.div`
   position: relative;
-  min-width: calc(20% - 10px);
+  min-width: calc(20% - 8px);
 
   @media (max-width: 700px) {
-    min-width: calc(25% - 10px);
+    min-width: calc(25% - 7.5px);
   }
   @media (max-width: 500px) {
-    min-width: calc(100% / 3 - 10px);
+    min-width: calc(100% / 3 - 6.9px);
   }
 `;
 const Container = styled.div`

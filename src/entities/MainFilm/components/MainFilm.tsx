@@ -159,6 +159,15 @@ const Image = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
+
+  :hover{
+    opacity: 0.7;
+  }
+  :active{
+    opacity: 0.5;
+  }
+
+  transition: all 0.3s;
 `;
 const BookmarksButton = styled.div`
   top: 2%;

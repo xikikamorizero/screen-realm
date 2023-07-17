@@ -119,12 +119,20 @@ const TitleNavbar = styled.div`
   line-height: normal;
   border-bottom: 1px solid silver;
 
+  -moz-user-select: none;
+-khtml-user-select: none;
+user-select: none;   
+
   cursor: pointer;
 
   :hover {
     color: var(--secondary);
     border-bottom: 1px solid var(--secondary);
   }
+  :active{
+    background-color: #47474795;
+  }
+  transition: background-color 1s;
 `;
 type PropsStyled = {
   icon: string;
@@ -140,6 +148,12 @@ const Icon = styled.div`
   background-repeat: no-repeat;
   background-size: ${({ iconSize }: PropsStyled) => iconSize};
   cursor: pointer;
+  border-radius: 50%;
+
+  :active{
+    background-color: #47474795;
+  }
+  transition: all 1s;
 `;
 const HeaderBurger = styled.div`
   padding: 30px;

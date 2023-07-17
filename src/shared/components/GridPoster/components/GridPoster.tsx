@@ -70,6 +70,11 @@ const Image = styled.div`
   :hover {
     opacity: 0.7;
   }
+  :active{
+    opacity: 0.5;
+  }
+
+  transition: all 0.3s;
 
   @media (max-width: 900px) {
     height: 20vw;

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { useLocation, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import { Select, MenuItem, FormControl } from "@mui/material";
@@ -46,7 +46,7 @@ export const SearchFilm = observer(() => {
     const countriesParam = searchParams.get("countries");
     const genresParam = searchParams.get("genres");
     const keywordParam = searchParams.get("keyword");
-    const orderParam:any = searchParams.get("order");
+    const orderParam: any = searchParams.get("order");
     const typeParam: any = searchParams.get("type");
     const ratingFromParam = searchParams.get("ratingFrom");
     const ratingToParam = searchParams.get("ratingTo");
@@ -63,33 +63,33 @@ export const SearchFilm = observer(() => {
     }
     if (orderParam !== null) {
       store.setOrder(orderParam);
-    }else{
-      store.setOrder("RATING")
+    } else {
+      store.setOrder("RATING");
     }
     if (typeParam !== null) {
       store.setType(typeParam);
-    }else{
-      store.setType("ALL")
+    } else {
+      store.setType("ALL");
     }
     if (ratingFromParam !== null) {
       store.setRatingFrom(Number(ratingFromParam));
-    }else{
-      store.setRatingFrom(0)
+    } else {
+      store.setRatingFrom(0);
     }
     if (ratingToParam !== null) {
       store.setRatingTo(Number(ratingToParam));
-    }else{
-      store.setRatingTo(10)
+    } else {
+      store.setRatingTo(10);
     }
     if (yearFromParam !== null) {
       store.setYearFrom(Number(yearFromParam));
-    }else{
-      store.setYearFrom(1000)
+    } else {
+      store.setYearFrom(1000);
     }
     if (yearToParam !== null) {
       store.setYearTo(Number(yearToParam));
-    }else{
-      store.setYearTo(3000)
+    } else {
+      store.setYearTo(3000);
     }
   }, [location.search]);
   //
@@ -122,34 +122,34 @@ export const SearchFilm = observer(() => {
     } else {
       searchParams.delete("keyword");
     }
-    if (store.getOrder !=="RATING"){
+    if (store.getOrder !== "RATING") {
       searchParams.set("order", store.getOrder);
-    } else{
+    } else {
       searchParams.delete("order");
     }
-    if (store.getType !=="ALL"){
+    if (store.getType !== "ALL") {
       searchParams.set("type", store.getType);
-    } else{
+    } else {
       searchParams.delete("type");
     }
-    if (store.getRatingFrom !==0){
+    if (store.getRatingFrom !== 0) {
       searchParams.set("ratingFrom", store.getRatingFrom.toString());
-    } else{
+    } else {
       searchParams.delete("ratingFrom");
     }
-    if (store.getRatingTo !==10){
+    if (store.getRatingTo !== 10) {
       searchParams.set("ratingTo", store.getRatingTo.toString());
-    } else{
+    } else {
       searchParams.delete("ratingTo");
     }
-    if (store.getYearFrom !==1000){
+    if (store.getYearFrom !== 1000) {
       searchParams.set("yearFrom", store.getYearFrom.toString());
-    } else{
+    } else {
       searchParams.delete("yearFrom");
     }
-    if (store.getYearTo !==3000){
+    if (store.getYearTo !== 3000) {
       searchParams.set("yearTo", store.getYearTo.toString());
-    } else{
+    } else {
       searchParams.delete("yearTo");
     }
     // Update the URL with the modified search parameters
@@ -173,7 +173,7 @@ export const SearchFilm = observer(() => {
         .then((response) => {
           if (response.status === undefined || response.status !== 200) {
             store.setLoader(false);
-            global.store.error = response.status
+            global.store.error = response.status;
             return;
           }
           store.setList([...response.data.items]);
@@ -224,185 +224,184 @@ export const SearchFilm = observer(() => {
         />
       </ContainerSearch>
 
-      {filterState ? (
-        <Filter>
-          <ContainerFilterPanel>
-            <ContainerInput>
-              <Title>Год</Title>
-              <InputFilter
-                onChange={(e) => {
-                  store.setYearFrom(Number(e.target.value));
-                }}
-                type={"number"}
-                value={store.getYearFrom}
-                placeholder={"от"}
-              />
-              <InputFilter
-                onChange={(e) => {
-                  store.setYearTo(Number(e.target.value));
-                }}
-                value={store.getYearTo}
-                type={"number"}
-                placeholder={"до"}
-              />
-            </ContainerInput>
-            <ContainerInput>
-              <Title>Рейтинг</Title>
-              <InputFilter
-                onChange={(e) => {
-                  store.setRatingFrom(Number(e.target.value));
-                }}
-                value={store.getRatingFrom}
-                type={"number"}
-                placeholder={"от"}
-              />
-              <InputFilter
-                onChange={(e) => {
-                  store.setRatingTo(Number(e.target.value));
-                }}
-                value={store.getRatingTo}
-                type={"number"}
-                placeholder={"до"}
-              />
-            </ContainerInput>
-          </ContainerFilterPanel>
+      <Filter show={filterState}>
+        <ContainerFilterPanel>
+          <ContainerInput>
+            <Title>Год</Title>
+            <InputFilter
+              onChange={(e) => {
+                store.setYearFrom(Number(e.target.value));
+              }}
+              type={"number"}
+              value={store.getYearFrom}
+              placeholder={"от"}
+            />
+            <InputFilter
+              onChange={(e) => {
+                store.setYearTo(Number(e.target.value));
+              }}
+              value={store.getYearTo}
+              type={"number"}
+              placeholder={"до"}
+            />
+          </ContainerInput>
+          <ContainerInput>
+            <Title>Рейтинг</Title>
+            <InputFilter
+              onChange={(e) => {
+                store.setRatingFrom(Number(e.target.value));
+              }}
+              value={store.getRatingFrom}
+              type={"number"}
+              placeholder={"от"}
+            />
+            <InputFilter
+              onChange={(e) => {
+                store.setRatingTo(Number(e.target.value));
+              }}
+              value={store.getRatingTo}
+              type={"number"}
+              placeholder={"до"}
+            />
+          </ContainerInput>
+        </ContainerFilterPanel>
 
-          <ContainerFilterPanel>
+        <ContainerFilterPanel>
+          <TypeContainer>
+            <Title>Категории</Title>
+            <TagContainer>
+              <Tag
+                background={store.getType == "FILM"}
+                onClick={() => {
+                  store.setType("FILM");
+                }}
+              >
+                FILM
+              </Tag>
+              <Tag
+                background={store.getType == "TV_SHOW"}
+                onClick={() => {
+                  store.setType("TV_SHOW");
+                }}
+              >
+                TV_SHOW
+              </Tag>
+              <Tag
+                background={store.getType == "TV_SERIES"}
+                onClick={() => {
+                  store.setType("TV_SERIES");
+                }}
+              >
+                TV_SERIES
+              </Tag>
+              <Tag
+                background={store.getType == "MINI_SERIES"}
+                onClick={() => {
+                  store.setType("MINI_SERIES");
+                }}
+              >
+                MINI_SERIES
+              </Tag>
+              <Tag
+                background={store.getType == "ALL"}
+                onClick={() => {
+                  store.setType("ALL");
+                }}
+              >
+                ALL
+              </Tag>
+            </TagContainer>
+          </TypeContainer>
+          <TypeContainer>
+            <Title>Сортировка</Title>
+            <TagContainer>
+              <Tag
+                background={store.getOrder == "RATING"}
+                onClick={() => {
+                  store.setOrder("RATING");
+                }}
+              >
+                RATING
+              </Tag>
+              <Tag
+                background={store.getOrder == "NUM_VOTE"}
+                onClick={() => {
+                  store.setOrder("NUM_VOTE");
+                }}
+              >
+                NUM_VOTE
+              </Tag>
+              <Tag
+                background={store.getOrder == "YEAR"}
+                onClick={() => {
+                  store.setOrder("YEAR");
+                }}
+              >
+                YEAR
+              </Tag>
+            </TagContainer>
+          </TypeContainer>
+        </ContainerFilterPanel>
+
+        <ContainerFilterPanel just={"space-between"}>
+          <SelectContainer>
             <TypeContainer>
-              <Title>Категории</Title>
-              <TagContainer>
-                <Tag
-                  background={store.getType == "FILM"}
-                  onClick={() => {
-                    store.setType("FILM");
+              <Title>Жанры</Title>
+              <FormControl sx={{ border: "1px solid var(--secondary)" }}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={store.getGenres !== null ? store.getGenres : 0}
+                  onChange={handleSelectGenre}
+                  MenuProps={MenuProps}
+                  sx={{
+                    width: 300,
+                    color: "var(--secondary)",
+                    "& svg": {
+                      color: "var(--secondary)",
+                    },
                   }}
                 >
-                  FILM
-                </Tag>
-                <Tag
-                  background={store.getType == "TV_SHOW"}
-                  onClick={() => {
-                    store.setType("TV_SHOW");
-                  }}
-                >
-                  TV_SHOW
-                </Tag>
-                <Tag
-                  background={store.getType == "TV_SERIES"}
-                  onClick={() => {
-                    store.setType("TV_SERIES");
-                  }}
-                >
-                  TV_SERIES
-                </Tag>
-                <Tag
-                  background={store.getType == "MINI_SERIES"}
-                  onClick={() => {
-                    store.setType("MINI_SERIES");
-                  }}
-                >
-                  MINI_SERIES
-                </Tag>
-                <Tag
-                  background={store.getType == "ALL"}
-                  onClick={() => {
-                    store.setType("ALL");
-                  }}
-                >
-                  ALL
-                </Tag>
-              </TagContainer>
+                  <MenuItem value={0}>Выберите жанр</MenuItem>
+                  {genreArrayData.map((a, i) => (
+                    <MenuItem value={String(a.id)} key={i}>
+                      {a.genre}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </TypeContainer>
+
             <TypeContainer>
-              <Title>Сортировка</Title>
-              <TagContainer>
-                <Tag
-                  background={store.getOrder == "RATING"}
-                  onClick={() => {
-                    store.setOrder("RATING");
+              <Title>Страны</Title>
+              <FormControl sx={{ border: "1px solid var(--secondary)" }}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={store.getCountries !== null ? store.getCountries : 0}
+                  onChange={handleSelectCountry}
+                  MenuProps={MenuProps}
+                  sx={{
+                    width: 300,
+                    color: "var(--secondary)",
+                    "& svg": {
+                      color: "var(--secondary)",
+                    },
                   }}
                 >
-                  RATING
-                </Tag>
-                <Tag
-                  background={store.getOrder == "NUM_VOTE"}
-                  onClick={() => {
-                    store.setOrder("NUM_VOTE");
-                  }}
-                >
-                  NUM_VOTE
-                </Tag>
-                <Tag
-                  background={store.getOrder == "YEAR"}
-                  onClick={() => {
-                    store.setOrder("YEAR");
-                  }}
-                >
-                  YEAR
-                </Tag>
-              </TagContainer>
+                  <MenuItem value={0}>Выберите страну</MenuItem>
+                  {countriesArrayData.map((a, i) => (
+                    <MenuItem value={String(a.id)} key={i}>
+                      {a.country}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </TypeContainer>
-          </ContainerFilterPanel>
+          </SelectContainer>
+        </ContainerFilterPanel>
+      </Filter>
 
-          <ContainerFilterPanel just={"space-between"}>
-            <SelectContainer>
-              <TypeContainer>
-                <Title>Жанры</Title>
-                <FormControl sx={{ border: "1px solid var(--secondary)" }}>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={store.getGenres !== null ? store.getGenres : 0}
-                    onChange={handleSelectGenre}
-                    MenuProps={MenuProps}
-                    sx={{
-                      width: 300,
-                      color: "var(--secondary)",
-                      "& svg": {
-                        color: "var(--secondary)",
-                      },
-                    }}
-                  >
-                    <MenuItem value={0}>Выберите жанр</MenuItem>
-                    {genreArrayData.map((a, i) => (
-                      <MenuItem value={String(a.id)} key={i}>
-                        {a.genre}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </TypeContainer>
-
-              <TypeContainer>
-                <Title>Страны</Title>
-                <FormControl sx={{ border: "1px solid var(--secondary)" }}>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={store.getCountries !== null ? store.getCountries : 0}
-                    onChange={handleSelectCountry}
-                    MenuProps={MenuProps}
-                    sx={{
-                      width: 300,
-                      color: "var(--secondary)",
-                      "& svg": {
-                        color: "var(--secondary)",
-                      },
-                    }}
-                  >
-                    <MenuItem value={0}>Выберите страну</MenuItem>
-                    {countriesArrayData.map((a, i) => (
-                      <MenuItem value={String(a.id)} key={i}>
-                        {a.country}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </TypeContainer>
-            </SelectContainer>
-          </ContainerFilterPanel>
-        </Filter>
-      ) : null}
       {store.getKeyword !== "" ? <Title>Результат поиска:</Title> : null}
       {store.getLoader === true ? (
         <Loader loaderSearch={true} />
@@ -469,31 +468,22 @@ const Icon = styled.div`
     background-size: 33px;
   }
 `;
+type FilterStyle = {
+  show: boolean;
+};
 const Filter = styled.div`
+  max-height: ${({ show }: FilterStyle) => (show ? '1000px' : '0px')};
+  overflow: hidden;
   width: 80%;
   display: flex;
   gap: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: max-height 0.4s linear; 
 
   @media (max-width: 444px) {
     width: 96%;
-  }
-
-  animation-name: loader;
-  animation-duration: 1s;
-  transition: all 4s;
-  animation-iteration-count: 1;
-  animation-timing-function: linear;
-
-  @keyframes loader {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
   }
 `;
 const InputFilter = styled.input`

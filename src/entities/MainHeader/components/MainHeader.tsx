@@ -14,6 +14,18 @@ export const MainHeader = () => {
   const [scrolled, setScrolled] = useState(false);
   const [burger, setBurger] = useState<boolean>(false);
 
+  const handleBodyScroll = () => {
+    if (burger) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  };
+  
+  useEffect(() => {
+    handleBodyScroll();
+  }, [burger]);
+
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 0;

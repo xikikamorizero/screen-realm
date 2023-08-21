@@ -116,7 +116,7 @@ position: relative;
   justify-content: space-between;
 
   @media (max-width: 700px) {
-    gap: 10 px;
+    gap: 10px;
   }
 `;
 const InfoBlock = styled.div`

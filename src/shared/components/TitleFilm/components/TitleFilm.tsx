@@ -36,14 +36,15 @@ const Name = styled.div`
   font-size: 48px;
   line-height: 52px;
   @media (max-width: 700px) {
-    font-size: 28px;
-    line-height: 30px;
+    font-size: 23px;
+    line-height: 25px;
   }
 `;
 
 const AgeRating = styled.div`
+  min-width: max-content;
   color: var(--white);
-  padding: 5px 10px 5px 10px;
+  padding: 5px 5px;
 
   font-style: normal;
   font-weight: 700;
@@ -58,7 +59,6 @@ const AgeRating = styled.div`
   background-color: var(--secondary);
 
   @media (max-width: 700px) {
-    min-width: 40px;
     padding: 2px 3px 2px 3px;
     font-size: 8px;
     border-radius: 5px;

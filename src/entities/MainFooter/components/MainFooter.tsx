@@ -25,8 +25,6 @@ const FooterContainer = styled.div`
   display: flex;
   justify-content: center;
   border-top: 1px solid var(--borderSecondaty);
-  position: relative;
-  z-index: 6;
 `;
 
 const Footer = styled(Container)`

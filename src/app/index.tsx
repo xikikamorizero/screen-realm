@@ -41,5 +41,9 @@ const AppContainer = styled.div`
 const Center = styled(Container)`
   min-height: 93vh;
   padding: 100px 0px 90px 0px;
+
+@media (max-width:700px) {
+  min-height: calc(93vh + 20px);
+}
 `;
 export default App;

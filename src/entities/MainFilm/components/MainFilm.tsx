@@ -152,12 +152,16 @@ const Title = styled.div`
 `;
 
 const Image = styled.div`
-  min-width: calc(33.3333% - 10px);
+  min-width: calc(100% / 3);
+  max-width: calc(100% / 3);
   height: 17vw;
   background: url(${({ image }: Props) => (image ? image : error)});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  -webkit-tap-highlight-color: transparent;
+  
   cursor: pointer;
 
   :hover{

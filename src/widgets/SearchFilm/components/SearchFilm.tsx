@@ -41,7 +41,6 @@ export const SearchFilm = observer(() => {
 
   useEffect(() => {
     global.store.error = 0;
-    // Извлечение параметров из URL и установка значений в состоянии
     const searchParams = new URLSearchParams(location.search);
     const countriesParam = searchParams.get("countries");
     const genresParam = searchParams.get("genres");
@@ -152,7 +151,7 @@ export const SearchFilm = observer(() => {
     } else {
       searchParams.delete("yearTo");
     }
-    // Update the URL with the modified search parameters
+ 
     navigate(`?${searchParams.toString()}`);
     const debouncedFetchMovies = debounce(async () => {
       store.setLoader(true);

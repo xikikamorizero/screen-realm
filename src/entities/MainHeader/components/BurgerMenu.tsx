@@ -32,6 +32,7 @@ export const Burger = ({ ...props }: PropsType) => {
             icon={search}
             onClick={() => {
               navigate("/search");
+              props.click(false);
             }}
           />
                <Icon

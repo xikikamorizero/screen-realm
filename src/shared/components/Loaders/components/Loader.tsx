@@ -36,13 +36,13 @@ const Logo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
-  height: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
+  width: ${({loaderSearch}: Props) => loaderSearch? '70px':'100px'};
+  height: ${({loaderSearch}: Props) => loaderSearch? '70px':'100px'};
 
   background-image: url(${({src}: LogoProps) => src});
   background-repeat: no-repeat;
   background-position: center;
-  background-size:  ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};
+  background-size:  ${({loaderSearch}: Props) => loaderSearch? '70px':'100px'};
   animation-name: loader;
   animation-duration: 4s;
   transition: all 4s;
@@ -52,15 +52,15 @@ const Logo = styled.div`
 
   @keyframes loader {
     0% {
-        background-size: ${({loaderSearch}: Props) => loaderSearch? '5vw':'6vw'};
+        background-size: ${({loaderSearch}: Props) => loaderSearch? '50px':'60px'};
         transform: rotate(0deg);
     }
     50% {
-        background-size: ${({loaderSearch}: Props) => loaderSearch? '7vw':'10vw'};;
+        background-size: ${({loaderSearch}: Props) => loaderSearch? '70px':'100px'};;
         transform: rotate(180deg);  
     }
     100% {
-        background-size: ${({loaderSearch}: Props) => loaderSearch? '5vw':'6vw'};;
+        background-size: ${({loaderSearch}: Props) => loaderSearch? '50px':'60px'};;
         transform: rotate(360deg);
     }
   }

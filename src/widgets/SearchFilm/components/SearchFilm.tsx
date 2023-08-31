@@ -157,8 +157,7 @@ export const SearchFilm = observer(() => {
 
         const search = async () => {
             if (cancelToken) {
-                console.log('123132')
-                cancelToken.cancel("Работает");
+                cancelToken.cancel();
             }
 
             const source = axios.CancelToken.source();

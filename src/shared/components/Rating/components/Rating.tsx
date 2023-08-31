@@ -12,7 +12,7 @@ export const Rating = ({ ...props }: Props) => {
 
   useEffect(() => {
     if (props.rating) {
-      if (props.rating > 7) {
+      if (props.rating >= 7) {
         setColor("var(--highRating)");
       } else if (props.rating < 7 && props.rating > 4) {
         setColor("var(--secondary)");

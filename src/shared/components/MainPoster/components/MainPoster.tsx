@@ -49,7 +49,7 @@ export const MainPoster = observer(({ ...props }: Props) => {
         }}
       >
         <Image image={props.image} style={props.style} />
-        <Creator>{props.creator}</Creator>
+        <Creator>Rating: {props.creator}</Creator>
         <Name>{props.name}</Name>
       </Container>
     </Block>

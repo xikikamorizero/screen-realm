@@ -12,7 +12,7 @@ export const TitleFilm = ({ ...props }: Props) => {
   return (
     <Container>
       <Name>{props.name}</Name>
-      {props.ageRating ? <AgeRating>{props.ageRating} +</AgeRating> : null}
+      {props.ageRating ? <AgeRating>{props.ageRating? props.ageRating: '0+'}</AgeRating> : null}
     </Container>
   );
 };

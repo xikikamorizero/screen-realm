@@ -18,7 +18,7 @@ export const CheckAccountAccess = observer(
     }
     return (
       <React.Fragment>
-        {store.store.error === 402? <Error402 /> : null}
+        {store.store.error > 200? <Error402 /> : null}
         <Routing fallback={<Loader />} routes={publicRoutes} />
       </React.Fragment>
     );

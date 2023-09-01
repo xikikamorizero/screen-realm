@@ -11,7 +11,6 @@ export const Banner = ({ icon, text }: Props) => {
         <Container>
             {icon}
             {text}
-   
         </Container>
     )
 }

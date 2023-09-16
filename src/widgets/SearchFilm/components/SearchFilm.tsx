@@ -1,20 +1,17 @@
-import React, { useState, useContext, useEffect } from "react";
-import styled, { keyframes, css } from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
-import { debounce } from "lodash";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { Select, MenuItem, FormControl } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { ContainerGrid } from "../../../shared/components";
 import { MovieFilterResponse } from "../../../shared/api/types";
 import { GridPoster } from "../../../shared/components";
 import { Input } from "../../../shared/components";
-import { useFilter } from "../lib/hook";
-import { Context as globalContext } from "../../../shared/api/context";
-import { Context } from "../lib/context";
+import { useFilter } from "../lib/hook/useFillter";
+import { useSearchParamsSync } from "../lib/hook/useSearchParamsSync";
 import { Loader } from "../../../shared/components";
 import search from "../assets/search.png";
 import filter from "../assets/filter.png";
-import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -30,69 +27,10 @@ const MenuProps = {
 };
 
 export const SearchFilm = observer(() => {
-    const { genreArrayData, countriesArrayData } = useFilter();
-    const { store } = useContext(Context);
-    const global = useContext(globalContext);
+    const { genreArrayData, countriesArrayData, store } = useFilter();
+    useSearchParamsSync();
+
     const [filterState, setFilterState] = useState(false);
-    const [cancelToken, setCancelToken] = useState<any>(null);
-    //test
-
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-        global.store.error = 0;
-        const searchParams = new URLSearchParams(location.search);
-        const countriesParam = searchParams.get("countries");
-        const genresParam = searchParams.get("genres");
-        const keywordParam = searchParams.get("keyword");
-        const orderParam: any = searchParams.get("order");
-        const typeParam: any = searchParams.get("type");
-        const ratingFromParam = searchParams.get("ratingFrom");
-        const ratingToParam = searchParams.get("ratingTo");
-        const yearFromParam = searchParams.get("yearFrom");
-        const yearToParam = searchParams.get("yearTo");
-        if (keywordParam !== null) {
-            store.setKeyword(keywordParam);
-        }
-        if (countriesParam !== null) {
-            store.setCountries(Number(countriesParam));
-        }
-        if (genresParam !== null) {
-            store.setGenres(Number(genresParam));
-        }
-        if (orderParam !== null) {
-            store.setOrder(orderParam);
-        } else {
-            store.setOrder("RATING");
-        }
-        if (typeParam !== null) {
-            store.setType(typeParam);
-        } else {
-            store.setType("ALL");
-        }
-        if (ratingFromParam !== null) {
-            store.setRatingFrom(Number(ratingFromParam));
-        } else {
-            store.setRatingFrom(0);
-        }
-        if (ratingToParam !== null) {
-            store.setRatingTo(Number(ratingToParam));
-        } else {
-            store.setRatingTo(10);
-        }
-        if (yearFromParam !== null) {
-            store.setYearFrom(Number(yearFromParam));
-        } else {
-            store.setYearFrom(1000);
-        }
-        if (yearToParam !== null) {
-            store.setYearTo(Number(yearToParam));
-        } else {
-            store.setYearTo(3000);
-        }
-    }, [location.search]);
-    //
 
     const handleSelectGenre = (event: any) => {
         store.setGenres(
@@ -103,138 +41,10 @@ export const SearchFilm = observer(() => {
         store.setCountries(
             event.target.value !== 0 ? Number(event.target.value) : null
         );
-    };
-
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        if (store.getCountries !== null) {
-            searchParams.set("countries", store.getCountries.toString());
-        } else {
-            searchParams.delete("countries");
-        }
-        if (store.getGenres !== null) {
-            searchParams.set("genres", store.getGenres.toString());
-        } else {
-            searchParams.delete("genres");
-        }
-        if (store.getKeyword !== "") {
-            searchParams.set("keyword", store.getKeyword);
-        } else {
-            searchParams.delete("keyword");
-        }
-        if (store.getOrder !== "RATING") {
-            searchParams.set("order", store.getOrder);
-        } else {
-            searchParams.delete("order");
-        }
-        if (store.getType !== "ALL") {
-            searchParams.set("type", store.getType);
-        } else {
-            searchParams.delete("type");
-        }
-        if (store.getRatingFrom !== 0) {
-            searchParams.set("ratingFrom", store.getRatingFrom.toString());
-        } else {
-            searchParams.delete("ratingFrom");
-        }
-        if (store.getRatingTo !== 10) {
-            searchParams.set("ratingTo", store.getRatingTo.toString());
-        } else {
-            searchParams.delete("ratingTo");
-        }
-        if (store.getYearFrom !== 1000) {
-            searchParams.set("yearFrom", store.getYearFrom.toString());
-        } else {
-            searchParams.delete("yearFrom");
-        }
-        if (store.getYearTo !== 3000) {
-            searchParams.set("yearTo", store.getYearTo.toString());
-        } else {
-            searchParams.delete("yearTo");
-        }
-
-        navigate(`?${searchParams.toString()}`);
-
-        const search = async () => {
-            if (cancelToken) {
-                cancelToken.cancel();
-            }
-
-            const source = axios.CancelToken.source();
-            setCancelToken(source);
-
-            try {
-                const response = await axios
-                    .get(`https://kinopoiskapiunofficial.tech/api/v2.2/films`, {
-                        params: {
-                            keyword: store.getKeyword,
-                            page: store.getPage,
-                            countries: store.getCountries,
-                            genres: store.getGenres,
-                            order: store.getOrder,
-                            type: store.getType,
-                            ratingFrom: store.getRatingFrom,
-                            ratingTo: store.getRatingTo,
-                            yearFrom: store.getYearFrom,
-                            yearTo: store.getYearTo,
-                        },
-                        headers: {
-                            "X-API-KEY": "e8dab39e-c89d-4804-8a7b-fb7c8cac5ffa",
-                        },
-                        cancelToken: source.token,
-                    })
-                    .then((response) => {
-                        if (!store.getKeyword) {
-                            store.setList(null);
-                            store.setLoader(false);
-                            return;
-                        }
-                        store.setList([...response.data.items]);
-                        store.setLoader(false);
-                    });
-            } catch (error: any) {
-                if (axios.isCancel(error)) {
-                } else {
-                    global.store.error = error.response.status;
-                    store.setLoader(false);
-                }
-            }
-        };
-
-        const debouncedFetchMovies = debounce(async () => {
-            store.setLoader(true);
-            store.setPage(1);
-            search();
-        }, 500);
-
-        if (store.getKeyword) {
-            debouncedFetchMovies();
-        } else {
-            store.setLoader(false);
-            store.setList(null);
-        }
-
-        return () => {
-            debouncedFetchMovies.cancel();
-            if (cancelToken) {
-                cancelToken.cancel();
-            }
-        };
-    }, [
-        store.getKeyword,
-        store.getGenres,
-        store.getCountries,
-        store.getOrder,
-        store.getType,
-        store.getRatingFrom,
-        store.getRatingTo,
-        store.getYearFrom,
-        store.getYearTo,
-    ]);
-
+    }
     return (
         <Container>
-            <ContainerSearch>
+            <ContainerSearch filter={filterState? "1" : undefined}>
                 <Icon icon={search} />
                 <Input
                     type={"text"}
@@ -253,220 +63,257 @@ export const SearchFilm = observer(() => {
                     icon={filter}
                 />
             </ContainerSearch>
-
-            <Filter show={filterState}>
-                <ContainerFilterPanel>
-                    <ContainerInput>
-                        <Title>Год</Title>
-                        <InputFilter
-                            onChange={(e) => {
-                                store.setYearFrom(Number(e.target.value));
-                            }}
-                            type={"number"}
-                            value={store.getYearFrom}
-                            placeholder={"от"}
-                        />
-                        <InputFilter
-                            onChange={(e) => {
-                                store.setYearTo(Number(e.target.value));
-                            }}
-                            value={store.getYearTo}
-                            type={"number"}
-                            placeholder={"до"}
-                        />
-                    </ContainerInput>
-                    <ContainerInput>
-                        <Title>Рейтинг</Title>
-                        <InputFilter
-                            onChange={(e) => {
-                                store.setRatingFrom(Number(e.target.value));
-                            }}
-                            value={store.getRatingFrom}
-                            type={"number"}
-                            placeholder={"от"}
-                        />
-                        <InputFilter
-                            onChange={(e) => {
-                                store.setRatingTo(Number(e.target.value));
-                            }}
-                            value={store.getRatingTo}
-                            type={"number"}
-                            placeholder={"до"}
-                        />
-                    </ContainerInput>
-                </ContainerFilterPanel>
-
-                <ContainerFilterPanel>
-                    <TypeContainer>
-                        <Title>Категории</Title>
-                        <TagContainer>
-                            <Tag
-                                background={store.getType == "FILM"}
-                                onClick={() => {
-                                    store.setType("FILM");
-                                }}
-                            >
-                                FILM
-                            </Tag>
-                            <Tag
-                                background={store.getType == "TV_SHOW"}
-                                onClick={() => {
-                                    store.setType("TV_SHOW");
-                                }}
-                            >
-                                TV_SHOW
-                            </Tag>
-                            <Tag
-                                background={store.getType == "TV_SERIES"}
-                                onClick={() => {
-                                    store.setType("TV_SERIES");
-                                }}
-                            >
-                                TV_SERIES
-                            </Tag>
-                            <Tag
-                                background={store.getType == "MINI_SERIES"}
-                                onClick={() => {
-                                    store.setType("MINI_SERIES");
-                                }}
-                            >
-                                MINI_SERIES
-                            </Tag>
-                            <Tag
-                                background={store.getType == "ALL"}
-                                onClick={() => {
-                                    store.setType("ALL");
-                                }}
-                            >
-                                ALL
-                            </Tag>
-                        </TagContainer>
-                    </TypeContainer>
-                    <TypeContainer>
-                        <Title>Сортировка</Title>
-                        <TagContainer>
-                            <Tag
-                                background={store.getOrder == "RATING"}
-                                onClick={() => {
-                                    store.setOrder("RATING");
-                                }}
-                            >
-                                RATING
-                            </Tag>
-                            <Tag
-                                background={store.getOrder == "NUM_VOTE"}
-                                onClick={() => {
-                                    store.setOrder("NUM_VOTE");
-                                }}
-                            >
-                                NUM_VOTE
-                            </Tag>
-                            <Tag
-                                background={store.getOrder == "YEAR"}
-                                onClick={() => {
-                                    store.setOrder("YEAR");
-                                }}
-                            >
-                                YEAR
-                            </Tag>
-                        </TagContainer>
-                    </TypeContainer>
-                </ContainerFilterPanel>
-
-                <ContainerFilterPanel just={"space-between"}>
-                    <SelectContainer>
-                        <TypeContainer>
-                            <Title>Жанры</Title>
-                            <FormControl
-                                sx={{ border: "1px solid var(--secondary)" }}
-                            >
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={
-                                        store.getGenres !== null
-                                            ? store.getGenres
-                                            : 0
-                                    }
-                                    onChange={handleSelectGenre}
-                                    MenuProps={MenuProps}
-                                    sx={{
-                                        width: 300,
-                                        color: "var(--secondary)",
-                                        "& svg": {
-                                            color: "var(--secondary)",
-                                        },
+            <AnimatePresence>
+                {filterState && (
+                    <Filter
+                        layout
+                        initial={{height: 0 }}
+                        animate={{ height: "auto" }}
+                        exit={{height: 0 }}
+                        transition={{ duration: 0.5}}
+                    >
+                        <ContainerFilterPanel>
+                            <ContainerInput>
+                                <Title>Год</Title>
+                                <InputFilter
+                                    onChange={(e) => {
+                                        store.setYearFrom(
+                                            Number(e.target.value)
+                                        );
                                     }}
-                                >
-                                    <MenuItem value={0}>Выберите жанр</MenuItem>
-                                    {genreArrayData.map((a, i) => (
-                                        <MenuItem value={String(a.id)} key={i}>
-                                            {a.genre}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </TypeContainer>
-
-                        <TypeContainer>
-                            <Title>Страны</Title>
-                            <FormControl
-                                sx={{ border: "1px solid var(--secondary)" }}
-                            >
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={
-                                        store.getCountries !== null
-                                            ? store.getCountries
-                                            : 0
-                                    }
-                                    onChange={handleSelectCountry}
-                                    MenuProps={MenuProps}
-                                    sx={{
-                                        width: 300,
-                                        color: "var(--secondary)",
-                                        "& svg": {
-                                            color: "var(--secondary)",
-                                        },
+                                    type={"number"}
+                                    value={store.getYearFrom}
+                                    placeholder={"от"}
+                                />
+                                <InputFilter
+                                    onChange={(e) => {
+                                        store.setYearTo(Number(e.target.value));
                                     }}
-                                >
-                                    <MenuItem value={0}>
-                                        Выберите страну
-                                    </MenuItem>
-                                    {countriesArrayData.map((a, i) => (
-                                        <MenuItem value={String(a.id)} key={i}>
-                                            {a.country}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </TypeContainer>
-                    </SelectContainer>
-                </ContainerFilterPanel>
-            </Filter>
+                                    value={store.getYearTo}
+                                    type={"number"}
+                                    placeholder={"до"}
+                                />
+                            </ContainerInput>
+                            <ContainerInput>
+                                <Title>Рейтинг</Title>
+                                <InputFilter
+                                    onChange={(e) => {
+                                        store.setRatingFrom(
+                                            Number(e.target.value)
+                                        );
+                                    }}
+                                    value={store.getRatingFrom}
+                                    type={"number"}
+                                    placeholder={"от"}
+                                />
+                                <InputFilter
+                                    onChange={(e) => {
+                                        store.setRatingTo(
+                                            Number(e.target.value)
+                                        );
+                                    }}
+                                    value={store.getRatingTo}
+                                    type={"number"}
+                                    placeholder={"до"}
+                                />
+                            </ContainerInput>
+                        </ContainerFilterPanel>
 
-            {store.getKeyword !== "" ? <Title>Результат поиска:</Title> : null}
-            {store.getLoader === true ? (
-                <Loader loaderSearch={true} />
-            ) : store.getList?.length == 0 ? (
-                <NoResult>Результаты не найдены</NoResult>
-            ) : (
-                <div>
-                    <ContainerGrid>
-                        {store.getList?.map((a: MovieFilterResponse, i) => (
-                            <GridPoster
-                                id={a.kinopoiskId}
-                                name={a.nameRu}
-                                image={a.posterUrl}
-                                creator={String(a.ratingKinopoisk)}
-                                key={i}
-                            />
-                        ))}
-                    </ContainerGrid>
-                    {store.getLoader ? <Loader loaderSearch={true} /> : null}
-                </div>
-            )}
+                        <ContainerFilterPanel>
+                            <TypeContainer>
+                                <Title>Категории</Title>
+                                <TagContainer>
+                                    <Tag
+                                        background={store.getType == "FILM"}
+                                        onClick={() => {
+                                            store.setType("FILM");
+                                        }}
+                                    >
+                                        FILM
+                                    </Tag>
+                                    <Tag
+                                        background={store.getType == "TV_SHOW"}
+                                        onClick={() => {
+                                            store.setType("TV_SHOW");
+                                        }}
+                                    >
+                                        TV_SHOW
+                                    </Tag>
+                                    <Tag
+                                        background={
+                                            store.getType == "TV_SERIES"
+                                        }
+                                        onClick={() => {
+                                            store.setType("TV_SERIES");
+                                        }}
+                                    >
+                                        TV_SERIES
+                                    </Tag>
+                                    <Tag
+                                        background={
+                                            store.getType == "MINI_SERIES"
+                                        }
+                                        onClick={() => {
+                                            store.setType("MINI_SERIES");
+                                        }}
+                                    >
+                                        MINI_SERIES
+                                    </Tag>
+                                    <Tag
+                                        background={store.getType == "ALL"}
+                                        onClick={() => {
+                                            store.setType("ALL");
+                                        }}
+                                    >
+                                        ALL
+                                    </Tag>
+                                </TagContainer>
+                            </TypeContainer>
+                            <TypeContainer>
+                                <Title>Сортировка</Title>
+                                <TagContainer>
+                                    <Tag
+                                        background={store.getOrder == "RATING"}
+                                        onClick={() => {
+                                            store.setOrder("RATING");
+                                        }}
+                                    >
+                                        RATING
+                                    </Tag>
+                                    <Tag
+                                        background={
+                                            store.getOrder == "NUM_VOTE"
+                                        }
+                                        onClick={() => {
+                                            store.setOrder("NUM_VOTE");
+                                        }}
+                                    >
+                                        NUM_VOTE
+                                    </Tag>
+                                    <Tag
+                                        background={store.getOrder == "YEAR"}
+                                        onClick={() => {
+                                            store.setOrder("YEAR");
+                                        }}
+                                    >
+                                        YEAR
+                                    </Tag>
+                                </TagContainer>
+                            </TypeContainer>
+                        </ContainerFilterPanel>
+
+                        <ContainerFilterPanel just={"space-between"}>
+                            <SelectContainer>
+                                <TypeContainer>
+                                    <Title>Жанры</Title>
+                                    <FormControl
+                                        sx={{
+                                            border: "1px solid var(--secondary)",
+                                        }}
+                                    >
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={
+                                                store.getGenres !== null
+                                                    ? store.getGenres
+                                                    : 0
+                                            }
+                                            onChange={handleSelectGenre}
+                                            MenuProps={MenuProps}
+                                            sx={{
+                                                width: 300,
+                                                color: "var(--secondary)",
+                                                "& svg": {
+                                                    color: "var(--secondary)",
+                                                },
+                                            }}
+                                        >
+                                            <MenuItem value={0}>
+                                                Выберите жанр
+                                            </MenuItem>
+                                            {genreArrayData.map((a, i) => (
+                                                <MenuItem
+                                                    value={String(a.id)}
+                                                    key={i}
+                                                >
+                                                    {a.genre}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </TypeContainer>
+
+                                <TypeContainer>
+                                    <Title>Страны</Title>
+                                    <FormControl
+                                        sx={{
+                                            border: "1px solid var(--secondary)",
+                                        }}
+                                    >
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={
+                                                store.getCountries !== null
+                                                    ? store.getCountries
+                                                    : 0
+                                            }
+                                            onChange={handleSelectCountry}
+                                            MenuProps={MenuProps}
+                                            sx={{
+                                                width: 300,
+                                                color: "var(--secondary)",
+                                                "& svg": {
+                                                    color: "var(--secondary)",
+                                                },
+                                            }}
+                                        >
+                                            <MenuItem value={0}>
+                                                Выберите страну
+                                            </MenuItem>
+                                            {countriesArrayData.map((a, i) => (
+                                                <MenuItem
+                                                    value={String(a.id)}
+                                                    key={i}
+                                                >
+                                                    {a.country}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                </TypeContainer>
+                            </SelectContainer>
+                        </ContainerFilterPanel>
+                    </Filter>
+                )}
+            </AnimatePresence>
+            <SilverLine />
+                {store.getKeyword !== "" ? (
+                    <Title>Результат поиска:</Title>
+                ) : null}
+                {store.getLoader === true ? (
+                    <Loader loaderSearch={true} />
+                ) : store.getList?.length == 0 ? (
+                    <NoResult>Результаты не найдены</NoResult>
+                ) : (
+                    <motion.div style={{ width: "100%" }}>
+                        <ContainerGrid>
+                            {store.getList?.map((a: MovieFilterResponse, i) => (
+                                <GridPoster
+                                    id={a.kinopoiskId}
+                                    name={a.nameRu? a.nameRu:a.nameOriginal}
+                                    image={a.posterUrl}
+                                    creator={String(a.ratingKinopoisk)}
+                                    key={i}
+                                />
+                            ))}
+                        </ContainerGrid>
+                        {store.getLoader ? (
+                            <Loader loaderSearch={true} />
+                        ) : null}
+                    </motion.div>
+                )}
         </Container>
     );
 });
@@ -476,7 +323,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
 `;
 type Props = {
     icon?: string;
@@ -484,13 +330,18 @@ type Props = {
     activeColor?: boolean;
 };
 
-const ContainerSearch = styled.div`
+const ContainerSearch = styled(motion.div)<{filter?:string}>`
     width: 100%;
     display: flex;
     gap: 20px;
-    border-bottom: 1px solid silver;
-    padding-bottom: 10px;
+    margin-bottom: ${(props)=>props.filter? 20:0}px;
 `;
+const SilverLine = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: silver;
+    margin-top: 20px;
+`
 const Icon = styled.div`
     min-width: 60px;
     min-height: 60px;
@@ -512,11 +363,7 @@ const Icon = styled.div`
         background-size: 33px;
     }
 `;
-type FilterStyle = {
-    show: boolean;
-};
-const Filter = styled.div`
-    max-height: ${({ show }: FilterStyle) => (show ? "1000px" : "0px")};
+const Filter = styled(motion.div)`
     overflow: hidden;
     width: 80%;
     display: flex;
@@ -524,7 +371,6 @@ const Filter = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: max-height 0.4s linear;
 
     @media (max-width: 444px) {
         width: 96%;

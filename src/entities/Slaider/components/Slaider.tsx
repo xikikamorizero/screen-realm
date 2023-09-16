@@ -88,7 +88,7 @@ export const Slaider = ({ ...props }: Props) => {
           : props.array?.map((a: types.Film, i) => (
               <MainPoster
                 id={a.filmId}
-                name={a.nameRu}
+                name={a.nameRu? a.nameRu:a.nameEn}
                 image={a.posterUrl}
                 creator={a.rating}
                 key={i}
@@ -124,4 +124,5 @@ const Title = styled.div`
   @media (max-width: 700px) {
     font-size: 28px;
   }
+  
 `;

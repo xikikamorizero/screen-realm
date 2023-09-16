@@ -9,10 +9,17 @@ type Props = {
 };
 
 export const TitleFilm = ({ ...props }: Props) => {
+  let age: string | undefined;
+
+  if (props.ageRating) {
+    const match = props.ageRating.match(/\d+/);
+    age = match ? match[0] : undefined;
+  }
+
   return (
     <Container>
-      <Name>{props.name}</Name>
-      {props.ageRating ? <AgeRating>{props.ageRating? props.ageRating: '0+'}</AgeRating> : null}
+      <Name>{props.name? props.name:'undefined'}</Name>
+      <AgeRating>{props.ageRating? age + '+': '?+'}</AgeRating>
     </Container>
   );
 };

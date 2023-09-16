@@ -55,7 +55,21 @@ export const MainPoster = observer(({ ...props }: Props) => {
     </Block>
   );
 });
+const Block = styled.div`
+  position: relative;
+  min-width: calc(20% - 8px);
+  max-width: calc(20% - 8px);
+  width: auto;
 
+  @media (max-width: 700px) {
+    min-width: calc(25% - 7.5px);
+    max-width: calc(25% - 7.5px);
+  }
+  @media (max-width: 500px) {
+    min-width: calc(100% / 3 - 6.9px);
+    max-width: calc(100% / 3 - 6.9px);
+  }
+`;
 const Image = styled.div`
   width: 100%;
   height: 17vw;
@@ -65,6 +79,8 @@ const Image = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 10px;
+
+  background-color: #616161;
 
   :hover {
     opacity: 0.7;
@@ -107,17 +123,7 @@ const Name = styled.div`
     font-size: 13px;
   }
 `;
-const Block = styled.div`
-  position: relative;
-  min-width: calc(20% - 8px);
 
-  @media (max-width: 700px) {
-    min-width: calc(25% - 7.5px);
-  }
-  @media (max-width: 500px) {
-    min-width: calc(100% / 3 - 6.9px);
-  }
-`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;

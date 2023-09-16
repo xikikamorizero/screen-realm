@@ -1,12 +1,24 @@
+import {useEffect} from 'react'
 import styled from "styled-components";
 import error from "../assets/error.png";
 
-export const Error402 = () => {
+type Props = {
+  text:string;
+}
+
+export const Error402 = ({...props}:Props) => {
+  useEffect(()=>{
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+  };
+  },[])
+  
   return (
     <Root>
       <Logo src={error} />
       <Title>
-        Приносим прощения в данный момент у нас неполадки с сервером
+        {props.text}
       </Title>
     </Root>
   );

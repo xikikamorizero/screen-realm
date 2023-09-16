@@ -24,6 +24,7 @@ const Image = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #3d3d3d;
 
   @media (max-width: 700px){
     height: 50vw;

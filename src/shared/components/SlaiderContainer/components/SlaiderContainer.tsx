@@ -75,7 +75,6 @@ export const SlaiderContainerBlock = styled.div`
   display: flex;
   gap: 10px;
   overflow: scroll;
-
   ::-webkit-scrollbar {
     display: none;
   }

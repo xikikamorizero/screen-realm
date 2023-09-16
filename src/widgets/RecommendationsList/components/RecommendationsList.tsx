@@ -26,7 +26,7 @@ export const RecommendationsList = observer(() => {
       <Title>Рекомендованные</Title>
       <ContainerGrid>
         {list.map((a: Film, i) => (
-          <GridPoster id={a.filmId} name={a.nameRu} creator={a.rating} image={a.posterUrl} key={i} />
+          <GridPoster id={a.filmId} name={a.nameRu? a.nameRu:a.nameEn} creator={a.rating} image={a.posterUrl} key={i} />
         ))}
       </ContainerGrid>
       {store.loader !== false && store.loader !== 1 ? (

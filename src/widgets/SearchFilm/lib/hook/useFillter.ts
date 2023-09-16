@@ -1,8 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-
-import { Context as globalContext } from "../../../shared/api/context";
-
-import { Context } from "./context";
+import { Context as globalContext } from "../../../../shared/api/context";
+import { Context } from "../context";
 
 export const useFilter = () => {
 
@@ -17,13 +15,9 @@ export const useFilter = () => {
     global.store.list.getFilters
     .request()
     .then((response) => {
-      if(response.status !== 200){
-        global.store.error = response.status;
-        return
-      }
         store.setCountriesArrayData(response.data.countries)
         store.setGenresArrayData(response.data.genres)
-    })
+    }).catch((error)=>{})
   }, []);
 
   useEffect(() => {
@@ -44,11 +38,6 @@ export const useFilter = () => {
             yearTo: store.getYearTo,
           })
           .then((response) => {
-            if(response.status !==200){
-              store.setLoader(false);
-              global.store.error = response.status;
-              return
-            }
             if(store.getList !== null){
               store.setList([...store.getList, ...response.data.items]);
             }
@@ -56,7 +45,8 @@ export const useFilter = () => {
             store.setLoader(false);
             store.setPage(store.getPage + 1);
             setTotalCount(response.data.totalPages);
-          }) 
+          })
+          .catch((error)=>{store.setLoader(false)})
           .finally(() => {
             setFetching(false);
           });
@@ -81,5 +71,5 @@ export const useFilter = () => {
     }
   };
 
-  return {genreArrayData:store.genresArrayData, countriesArrayData:store.countriesArrayData};
+  return {genreArrayData:store.genresArrayData, countriesArrayData:store.countriesArrayData, store:store};
 };

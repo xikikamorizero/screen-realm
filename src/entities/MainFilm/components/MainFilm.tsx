@@ -109,18 +109,18 @@ const Container = styled.div`
   gap: 50px;
 `;
 const ContainerHead = styled.div`
-position: relative;
+  position: relative;
   width: 100%;
   display: flex;
   gap: 20px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 
   @media (max-width: 700px) {
     gap: 10px;
   }
 `;
 const InfoBlock = styled.div`
-  max-width: 60%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   gap:25px;

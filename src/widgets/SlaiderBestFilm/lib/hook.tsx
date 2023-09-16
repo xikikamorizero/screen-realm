@@ -16,14 +16,10 @@ export const useList = () => {
         page: 1,
       })
       .then((response) => {
-        if (response == undefined || response.status!==200){
-          store.setResponseStatus(response.status);
-          global.store.error = response.status;
-          return;
-        }
+        store.setResponseStatus(response.status)
         store.setList([...response.data.films]);
         store.setLoader(false);
-      });
+      }).catch((error)=>{});
   }, []);
 
   return {list:store.list, loader:store.loader};

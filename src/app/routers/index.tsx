@@ -22,7 +22,7 @@ export const public_routers = getRoutes([
   [routers.general.path.search, search],
   [routers.general.path.aboutUs, aboutUs],
   [routers.general.path.bookmarks, bookmarks],
-  ['/error', error],
+  ['*', error],
   [routers.general.path.catalog, catalog]
 ]);
 

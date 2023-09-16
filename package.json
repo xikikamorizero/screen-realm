@@ -16,6 +16,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "axios": "^1.4.0",
+    "framer-motion": "^10.16.4",
     "gears-react": "^1.0.37",
     "lodash.debounce": "^4.0.8",
     "mobx": "^6.9.0",

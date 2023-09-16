@@ -22,16 +22,13 @@ export const useList = () => {
             page: store.page,
           })
           .then((response) => {
-            if (response == undefined || response.status!==200){
-              global.store.error = response.status;
-              return;
-            }
             store.setList([...store.list, ...response.data.films]);
             store.setPageCount(response.data.pagesCount);
             store.setLoader(false);
             store.setPage(store.page + 1);
             setTotalCount(response.data.pagesCount);
           })
+          .catch((error)=>{})
           .finally(() => {
             setFetching(false);
           });

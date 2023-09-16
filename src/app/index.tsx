@@ -13,7 +13,6 @@ import { Context } from "../shared/api";
 
 const App = observer(() => {
   const { store } = useContext(Context);
-  console.log(store.error);
   return (
     <AppContainer>
       <MainHeader />
@@ -22,7 +21,7 @@ const App = observer(() => {
           store.error == 402 ? { maxHeight: "93vh", overflow: "hidden" } : {}
         }
       >
-        <CheckAccountAccess
+        <CheckAccountAccess 
           protectedRoutes={protected_routers}
           publicRoutes={public_routers}
         />

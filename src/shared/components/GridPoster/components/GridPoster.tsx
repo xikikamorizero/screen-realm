@@ -64,7 +64,7 @@ const Image = styled.div`
   background: url(${({ image }: Props) => (image ? image : error)});
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size:cover;
   border-radius: 15px;
 
   :hover {

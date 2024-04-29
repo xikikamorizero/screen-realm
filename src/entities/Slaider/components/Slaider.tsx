@@ -17,53 +17,53 @@ export const Slaider = ({ ...props }: Props) => {
   let navigate = useNavigate();
   const SkeletonArray = [1, 2, 3, 4, 5];
   //
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
-  const [scrollLeft, setScrollLeft] = useState<number>(0);
-  const [startX, setStartX] = useState<number>(0);
+  // const containerRef = useRef<HTMLDivElement>(null);
+  // const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
+  // const [scrollLeft, setScrollLeft] = useState<number>(0);
+  // const [startX, setStartX] = useState<number>(0);
 
-  useEffect(() => {
-    const container = containerRef.current;
+  // useEffect(() => {
+  //   const container = containerRef.current;
 
-    const handleMouseDown = (e:any) => {
-      setIsMouseDown(true);
-      setStartX(e.clientX - (container?.offsetLeft || 0));
-      setScrollLeft(container?.scrollLeft || 0);
-    };
+  //   const handleMouseDown = (e:any) => {
+  //     setIsMouseDown(true);
+  //     setStartX(e.clientX - (container?.offsetLeft || 0));
+  //     setScrollLeft(container?.scrollLeft || 0);
+  //   };
     
-    const handleMouseUp = () => {
-      setIsMouseDown(false);
-    };
+  //   const handleMouseUp = () => {
+  //     setIsMouseDown(false);
+  //   };
     
-    const handleMouseLeave = () => {
-      setIsMouseDown(false);
-    };
+  //   const handleMouseLeave = () => {
+  //     setIsMouseDown(false);
+  //   };
     
-    const handleMouseMove = (e:any) => {
-      if (!isMouseDown || !container) return;
-      e.preventDefault();
-      const x = e.clientX - (container.offsetLeft || 0);
-      const walk = (x - startX) * 1;
-      container.scrollLeft = scrollLeft - walk;
-    };
+  //   const handleMouseMove = (e:any) => {
+  //     if (!isMouseDown || !container) return;
+  //     e.preventDefault();
+  //     const x = e.clientX - (container.offsetLeft || 0);
+  //     const walk = (x - startX) * 1;
+  //     container.scrollLeft = scrollLeft - walk;
+  //   };
     
 
-    if (container) {
-      container.addEventListener('mousedown', handleMouseDown);
-      container.addEventListener('mouseup', handleMouseUp);
-      container.addEventListener('mouseleave', handleMouseLeave);
-      container.addEventListener('mousemove', handleMouseMove);
-    }
+  //   if (container) {
+  //     container.addEventListener('mousedown', handleMouseDown);
+  //     container.addEventListener('mouseup', handleMouseUp);
+  //     container.addEventListener('mouseleave', handleMouseLeave);
+  //     container.addEventListener('mousemove', handleMouseMove);
+  //   }
 
-    return () => {
-      if (container) {
-        container.removeEventListener('mousedown', handleMouseDown);
-        container.removeEventListener('mouseup', handleMouseUp);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-        container.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, [containerRef, isMouseDown, startX, scrollLeft]);
+  //   return () => {
+  //     if (container) {
+  //       container.removeEventListener('mousedown', handleMouseDown);
+  //       container.removeEventListener('mouseup', handleMouseUp);
+  //       container.removeEventListener('mouseleave', handleMouseLeave);
+  //       container.removeEventListener('mousemove', handleMouseMove);
+  //     }
+  //   };
+  // }, [containerRef, isMouseDown, startX, scrollLeft]);
   //
   return (
     <Container>

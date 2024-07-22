@@ -33,14 +33,14 @@ const Anim = styled.div`
 
 const Image = styled(Anim)`
   width: 100%;
-  height: 17vw;
+  height: 23vw;
   border-radius: 15px;
 
   @media (max-width: 900px) {
-    height: 20vw;
+    height: 30vw;
   }
   @media (max-width: 750px) {
-    height: 30vw;
+    height: 37vw;
   }
 `;
 

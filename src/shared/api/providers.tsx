@@ -7,8 +7,8 @@ import {Store} from './store';
 
 const store = new Store();
 
-export const provider = (component: () => React.ReactNode) => () => (
-    <Context.Provider value={{store}}>
-        {component()}
-    </Context.Provider>
-);
+// export const provider = (component: () => React.ReactNode) => () => (
+//     <Context.Provider value={{store}}>
+//         {component()}
+//     </Context.Provider>
+// );

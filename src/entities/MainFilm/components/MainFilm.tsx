@@ -152,10 +152,11 @@ const Title = styled.div`
 `;
 
 const Image = styled.div`
+  background-color: #696969;
   min-width: calc(100% / 3);
   max-width: calc(100% / 3);
   height: 17vw;
-  background: url(${({ image }: Props) => (image ? image : error)});
+  background-image: url(${({ image }: Props) => (image ? image : error)});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

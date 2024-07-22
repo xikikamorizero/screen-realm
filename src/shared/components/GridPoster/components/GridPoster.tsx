@@ -59,7 +59,7 @@ const Block = styled.div`
 `;
 const Image = styled.div`
   width: 100%;
-  height: 17vw;
+  height: 23vw;
   background-color: var(--creator);
   background: url(${({ image }: Props) => (image ? image : error)});
   background-position: center;
@@ -77,10 +77,10 @@ const Image = styled.div`
   transition: all 0.3s;
 
   @media (max-width: 900px) {
-    height: 20vw;
+    height: 30vw;
   }
   @media (max-width: 750px) {
-    height: 30vw;
+    height: 37vw;
   }
 `;
 

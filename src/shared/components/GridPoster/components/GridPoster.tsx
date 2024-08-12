@@ -61,7 +61,7 @@ const Image = styled.div`
   width: 100%;
   height: 23vw;
   background-color: var(--creator);
-  background: url(${({ image }: Props) => (image ? image : error)});
+  background-image: url(${({ image }: Props) => (image ? image : error)});
   background-position: center;
   background-repeat: no-repeat;
   background-size:cover;

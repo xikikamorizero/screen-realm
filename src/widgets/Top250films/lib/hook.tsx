@@ -6,7 +6,6 @@ import { Context } from "./context";
 
 export const useList = () => {
   const [fetching, setFetching] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
 
   const { store } = useContext(Context);
   const global = useContext(globalContext);
@@ -26,7 +25,6 @@ export const useList = () => {
             store.setPageCount(response.data.pagesCount);
             store.setLoader(false);
             store.setPage(store.page + 1);
-            setTotalCount(response.data.pagesCount);
           })
           .catch((error)=>{})
           .finally(() => {
@@ -38,7 +36,7 @@ export const useList = () => {
 
   useEffect(() => {
     document.addEventListener("scroll", scrolHandler);
-  }, [totalCount]);
+  }, []);
 
   const scrolHandler = (e: any) => {
     if (

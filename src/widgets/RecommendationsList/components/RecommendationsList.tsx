@@ -48,4 +48,8 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 700;
   color:var(--secondary)
+
+  @media (max-width: 700px) {
+     font-size: 30px;
+  }
 `;

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { styled as styledMui } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import { motion, AnimatePresence } from "framer-motion";
 import { Select, MenuItem, FormControl } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { ContainerGrid } from "../../../shared/components";
@@ -11,7 +14,6 @@ import { useSearchParamsSync } from "../lib/hook/useSearchParamsSync";
 import { Loader } from "../../../shared/components";
 import search from "../assets/search.png";
 import filter from "../assets/filter.png";
-import { motion, AnimatePresence } from "framer-motion";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,11 +22,20 @@ const MenuProps = {
         style: {
             maxHeight: ITEM_HEIGHT * 3.5 + ITEM_PADDING_TOP,
             width: 250,
-            color: "white",
-            backgroundColor: "#5456605f",
+            color: "#fff",
+            backgroundColor: "#000",
         },
     },
 };
+
+const CustomInput = styledMui(InputBase)(({ theme }) => ({
+  '& .MuiInputBase-input': {
+    padding:"15px",
+    '&:focus': {
+      borderColor: 'red',
+    },
+  },
+}));
 
 export const SearchFilm = observer(() => {
     const { genreArrayData, countriesArrayData, store } = useFilter();
@@ -228,6 +239,7 @@ export const SearchFilm = observer(() => {
                                                     color: "var(--secondary)",
                                                 },
                                             }}
+                                            input={<CustomInput />}
                                         >
                                             <MenuItem value={0}>
                                                 Выберите жанр
@@ -266,8 +278,9 @@ export const SearchFilm = observer(() => {
                                                 color: "var(--secondary)",
                                                 "& svg": {
                                                     color: "var(--secondary)",
-                                                },
+                                                },  
                                             }}
+                                            input={<CustomInput />}
                                         >
                                             <MenuItem value={0}>
                                                 Выберите страну
@@ -378,7 +391,7 @@ const Filter = styled(motion.div)`
 `;
 const InputFilter = styled.input`
     width: 100%;
-    min-width: 100px;
+    min-width: 70px;
     padding: 5px;
     background-color: var(--main);
     border: 1px solid var(--white);

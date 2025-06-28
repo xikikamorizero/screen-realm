@@ -372,7 +372,7 @@ const Filter = styled(motion.div)`
 `;
 const InputFilter = styled.input`
     width: 100%;
-    min-width: 100px;
+    min-width: 70px;
     padding: 5px;
     background-color: var(--main);
     border: 1px solid var(--white);

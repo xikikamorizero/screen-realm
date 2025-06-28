@@ -63,9 +63,14 @@ const ContainerTitleButton = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 `;
 
 const Title = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   font-style: normal;
   font-weight: 500;
   font-size: 32px;

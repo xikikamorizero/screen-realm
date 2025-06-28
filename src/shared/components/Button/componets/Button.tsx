@@ -12,8 +12,6 @@ type Props = {
 };
 
 export const Button = styled.div`
-  width: ${({ width }: Props) => (width ? width : "100%")};
-  height: ${({ height }: Props) => (height ? height : "36px")};
   color: ${({ color }: Props) => (color ? color : "white")};
   cursor: pointer;
   background: ${({ background }: Props) => (background ? background : "")};
@@ -21,6 +19,7 @@ export const Button = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px 15px;
   font-style: normal;
   font-weight: 700;
   font-size: ${({ size }: Props) => (size ? size : "12px")};
@@ -44,8 +43,7 @@ export const Button = styled.div`
   user-select: none;
 
   @media (max-width: 700px) {
-    width: 100px;
-    height: 30px;
+    padding: 10px;
     font-size: 11px;
   }
 `;
